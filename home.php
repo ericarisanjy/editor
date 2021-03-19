@@ -23,6 +23,8 @@
   <script type="text/javascript" src="js/section.js"></script>
   <script type="text/javascript" src="js/bloc.js"></script>
   <meta name="csrf-token" content="{{ csrf_token() }}">
+  <link rel="stylesheet" type="text/css" href="https://cdn.tutorialjinni.com/toastr.js/2.1.4/toastr.min.css">
+  <script type="text/javascript" src="https://cdn.tutorialjinni.com/toastr.js/2.1.4/toastr.min.js"></script>
 </head>
 <body>
   <div class="container-page-list">
