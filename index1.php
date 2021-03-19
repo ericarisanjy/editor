@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-  <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.3.1.min.js"><\/script>')</script>
-
-  <!-- Import Trumbowyg -->
-  <script src="trumbowyg/dist/trumbowyg.min.js"></script>
-  <link rel="stylesheet" href="trumbowyg/dist/ui/trumbowyg.min.css">
-  <link rel="stylesheet" type="text/css" href="css/index.css">
-  <script type="text/javascript" src="js/index.js"></script>
-  <script src='spectrum.js'></script>
-  <link rel='stylesheet' href='spectrum.css' />
+	<title>Editeur</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<!-- <script type="text/javascript" src="js/jquery-simple-resize.js"></script> -->
+	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="ckeditor/ckeditor/ckeditor.js"></script>
+	<script type="text/javascript" src="ckeditor/ckeditor/adapters/jquery.js"></script>
 </head>
 <body>
-  <div class="container">
+	<div class="container">
     <div class="container-editor">
       <div class="bloc-container not_on_modal">
         <p class="txt-select">Ajouter une section: </p>
@@ -72,11 +70,16 @@
          <!--  <span class="erase-bloc">x</span> -->
           <div class="section-side">
             <div class="bloc-content">
-              
             </div>
           </div>
         </div>
-        <div id="trumbowyg-demo"><div class="section-body border-dashed column-direction min-height-150" contenteditable="true" data-section="1"></div></div>
+        <textarea class="ckeditor" name="editor1">
+			<div class="section-body border-dashed min-height-150">
+	            <div class="colonne col-100 border-dashed min-height-150" contenteditable="true" data-section="1" data-bloc="1">
+	              
+	            </div>
+	         </div>
+		</textarea>
         <script type="text/javascript">
           $('#trumbowyg-demo').trumbowyg();
         </script>
@@ -86,46 +89,13 @@
       </div>
     </div>
   </div>
-  <div class="close-preview is_hidden">
-      Retourner à l'éditeur
-  </div>
-  <div class="preview-page flex column-direction">
-    
-  </div>
-  <!-- Start Modal Section -->
-  <?php 
-    @include("modal/updateBloc.php")
-  ?>
-  <?php 
-    @include("modal/uploadFile.php")
-  ?>
-  <!-- End Modal Section -->
-  <input type='color' class='basic' value='#f594d0' />
-  <script type="text/javascript">
-    $("#picker").spectrum({
-    color: tinycolor,
-    flat: bool,
-    showInput: bool,
-    showInitial: bool,
-    showAlpha: bool,
-    disabled: bool,
-    localStorageKey: string,
-    showPalette: bool,
-    showPaletteOnly: bool,
-    showSelectionPalette: bool,
-    clickoutFiresChange: bool,
-    cancelText: string,
-    chooseText: string,
-    className: string,
-    preferredFormat: string,
-    maxSelectionSize: int,
-    palette: [[string]],
-    selectionPalette: [string]
-});
-  </script>
-
-   <div draggable="true">1st paragraph</div>
-
-
+	
+	<script type="text/javascript">
+	</script>
+	<!-- Start Modal Section -->
+	<?php 
+		@include("modal/uploadFile.php")
+	?>
+	<!-- End Modal Section -->
 </body>
 </html>
