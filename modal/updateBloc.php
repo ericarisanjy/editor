@@ -113,13 +113,13 @@
 							<div class="title">
 								<input type="text" name="dropdown-title" class="input borderInput-bloc" placeholder="Sans Bordure" readonly>
 								<div class="content-dropdown is_hidden">
-									<span class="drop-item">Sans Bordure</span>
-									<span class="drop-item">Solid</span>
-									<span class="drop-item">Dashed</span>
-									<span class="drop-item">Inset</span>
-									<span class="drop-item">Outset</span>
-									<span class="drop-item">Dotted</span>
-									<span class="drop-item">Double</span>
+									<span class="drop-item bordure-drop-item">Sans Bordure</span>
+									<span class="drop-item bordure-drop-item">Solid</span>
+									<span class="drop-item bordure-drop-item">Dashed</span>
+									<span class="drop-item bordure-drop-item">Inset</span>
+									<span class="drop-item bordure-drop-item">Outset</span>
+									<span class="drop-item bordure-drop-item">Dotted</span>
+									<span class="drop-item bordure-drop-item">Double</span>
 								</div>
 							</div>
 						</div>
@@ -144,7 +144,22 @@
 						<input type="text" name="" placeholder="Id" class="input input-id-bloc">
 					</div>
 				</div>
-				
+				<div class="items alignement">
+					<span class="txt-header">ALIGNEMENT</span>
+					<div class="content-property">
+						<span>Alignement</span>
+						<div class="content-input-setting" style="width: auto">
+							<div class="title-setting">
+								<input type="text" name="dropdown-title" class="input input-align" data-item="" placeholder="Alignement" readonly>
+								<div class="content-dropdown is_hidden">
+									<span class="drop-item align-drop-item" data-item="flex-start">Gauche</span>
+									<span class="drop-item align-drop-item" data-item="center">Centré</span>
+									<span class="drop-item align-drop-item" data-item="flex-end">Droite</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 				
 				
 			</div>

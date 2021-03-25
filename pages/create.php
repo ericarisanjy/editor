@@ -6,6 +6,9 @@
       <div class="item">
         <input type="text" name="pagedescription" placeholder="Description" class="pagedescription">
       </div>
+      <div class="item">
+        <input type="text" name="pageUrl" placeholder="URL de la page" class="pageUrl grised" readOnly>
+      </div>
     </div>
 </div>
 <div class="container create-page-item container-create is_hidden">

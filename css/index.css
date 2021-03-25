@@ -783,7 +783,12 @@ p{
     }
 }
 
-.modal-upload-file .active, .modal-upload-file-two .active {
+.paragraph-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-upload-file .active, .modal-upload-file-two .active, .modal-edit-img .active {
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -796,7 +801,7 @@ p{
           align-items: center;
   background-color: #36CCB5;
 }
-.modal-upload-file .active:before, .modal-upload-file-two .active:before {
+.modal-upload-file .active:before, .modal-upload-file-two .active:before, .modal-edit-img .active:before {
     position: absolute;
     content: url('../img/checked.svg');
     /* // top: 0;*/
@@ -954,4 +959,5 @@ button.add-btn {
 .create-page .item input{
     width: 300px;
     height: 30px;
+    border: none;
 }

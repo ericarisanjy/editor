@@ -2,6 +2,10 @@ $(document).ready(function(){
 
 	$(document).on('click', '.add-bloc-btn', function(){
 		launch_modal('modal-add-bloc')
+		$("body,html").animate(
+			{
+				scrollTop: $('.modal-edit-bloc').offset().top
+			},800);
 		selecteur = $(this)
 	})
 
@@ -58,6 +62,10 @@ $(document).ready(function(){
 
 	$(document).on('click', '.image-btn-on', function(){
     	launch_modal('modal-upload-file-two')
+		$("body,html").animate(
+			{
+				scrollTop: $('.modal-upload-file-two').offset().top
+			},800);
     	selecteur = $(this)
     })
 
@@ -160,6 +168,10 @@ $(document).ready(function(){
 
 	$(document).on('click', '.text-btn-on', function(){
     	launch_modal('modal-add-text')
+		$("body,html").animate(
+			{
+				scrollTop: $('.modal-add-text').offset().top
+			},800);
     	setTimeout(()=>{
 			$("#cke_17").addClass('is_hidden')
 			$("#cke_25").addClass('is_hidden')
@@ -183,6 +195,10 @@ $(document).ready(function(){
 
     $(document).on('click', '.edit-btn-on', function(){
     	launch_modal('modal-edit-bloc')
+		$("body,html").animate(
+			{
+				scrollTop: $('.modal-edit-bloc').offset().top
+			},800);
     	selecteur = $(this)
     	var data = []
     	console.log($(this).attr('data-bigData'))

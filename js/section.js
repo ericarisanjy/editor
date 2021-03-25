@@ -3,6 +3,10 @@ $(document).ready(function(){
 	$(document).on("click", '.add-section-text', function(){
 		if(!$(this).hasClass('grised')){
 			launch_modal("modal-add-text")
+			$("body,html").animate(
+				{
+					scrollTop: $('.modal-add-text').offset().top
+				},800);
 			setTimeout(()=>{
 				$("#cke_17").addClass('is_hidden')
 				$("#cke_25").addClass('is_hidden')
@@ -18,6 +22,10 @@ $(document).ready(function(){
 	$(document).on('click', '.add-image-section', function(){
     	if(!$(this).hasClass('grised')){
     		launch_modal('modal-upload-file')
+			$("body,html").animate(
+				{
+					scrollTop: $('.modal-upload-file').offset().top
+				},800);
     		selecteur = $(this)
     	}
     })
@@ -78,6 +86,10 @@ $(document).ready(function(){
 		let section = $(this).closest('.section-container').attr('data-section')
 		sectionDataOnModal = ""
 		launch_modal('modal-update-bloc')
+		$("body,html").animate(
+			{
+				scrollTop: $('.modal-update-bloc').offset().top
+			},800);
 		if(section === "sectionOne"){
 			$('.modal-update-bloc').find('.defaultSection').removeClass('active_bloc')
 			$('.modal-update-bloc').find('.defaultSection[data-section="1"]').addClass('active_bloc')
@@ -114,6 +126,7 @@ $(document).ready(function(){
 		let borderType = data.borderType
 		let borderColor = data.borderColor
 		let borderHeight = data.borderHeight
+		let alignment = data.alignment
 
 
 		$('.modal-update-bloc').find('.text-color-bloc').val(textColor?textColor:"#000")
@@ -131,6 +144,7 @@ $(document).ready(function(){
 		$('.modal-update-bloc').find('.borderInput-bloc').val(borderType?borderType:"")
 		$('.modal-update-bloc').find('.border-color-bloc').val(borderColor?borderColor:"")
 		$('.modal-update-bloc').find('.border-height-bloc').val(borderHeight?borderHeight:"")
+		$('.modal-update-bloc').find('.input-align').attr('data-item', alignment?alignment:"")
 	})
 
 	$(".modal-update-bloc").on('click', '.closed', function(){
@@ -147,6 +161,11 @@ $(document).ready(function(){
 			$(".modal-update-bloc").find('.on_modal').find('.nbre_col').addClass('is_hidden')
 		}
 	})
+
+	$('.modal-update-bloc').on('click', '.content-input-setting', function(){
+		$(this).find('.content-dropdown').toggleClass('is_hidden')
+	})
+
 
 	let nbre_col_on_modal = 3
 
@@ -194,6 +213,7 @@ $(document).ready(function(){
 		let borderType = $('.modal-update-bloc').find('.borderInput-bloc').val()
 		let borderColor = $('.modal-update-bloc').find('.border-color-bloc').val()
 		let borderHeight = $('.modal-update-bloc').find('.border-height-bloc').val()
+		let alignment = $('.modal-update-bloc').find('.input-align').attr('data-item')
 
 		let data = {
 			textColor: textChangeSection?textColor:"inherit",
@@ -211,6 +231,7 @@ $(document).ready(function(){
 			borderType: borderType === ""?"":borderType,
 			borderColor: borderColor === ""?0:borderColor,
 			borderHeight: borderHeight === ""?0:borderHeight,
+			alignment: alignment
 		}
 		$(selecteur).attr('data-bigData', JSON.stringify(data))
 		selecteur.closest('.section-container').find('.section-parent').addClass(classe)
@@ -220,6 +241,8 @@ $(document).ready(function(){
 			blocStyle.push("border:"+data.borderHeight+"px "+data.borderColor+" "+data.borderType+" !important;")
 		}
 		selecteur.closest('.section-container').find('.section-parent').attr('style', blocStyle.join(";"))
+		console.log('mande tasa', selecteur)
+		selecteur.closest(".section-container").find('.paragraph-container').attr('style', "text-align:"+data.alignment)
 
 		close_modal('modal-update-bloc')
 	})
@@ -240,6 +263,7 @@ $(document).ready(function(){
 		let borderType = $('.modal-edit-section').find('.borderInput-section').val()
 		let borderColor = $('.modal-edit-section').find('.border-color-section').val()
 		let borderHeight = $('.modal-edit-section').find('.border-height-section').val()
+		let alignment = $('.modal-edit-section').find('.input-align').attr('data-item')
 
 		let data = {
 			textColor: textChange?textColor:"inherit",
@@ -257,8 +281,9 @@ $(document).ready(function(){
 			borderType: borderType === ""?"":borderType,
 			borderColor: borderColor === ""?0:borderColor,
 			borderHeight: borderHeight === ""?0:borderHeight,
+			alignment: alignment
 		}
-		let sectionStyle = ["color: "+data.textColor+"; background: "+data.backColor+"; margin: "+data.margeUp+"px "+data.margeRight+"px "+data.margeDown+"px "+data.margeLeft+"px;padding: "+data.paddingUp+"px "+data.paddingRight+"px "+data.paddingDown+"px "+data.paddingLeft+"px"]
+		let sectionStyle = ["color: "+data.textColor+"; background: "+data.backColor+"; margin: "+data.margeUp+"px "+data.margeRight+"px "+data.margeDown+"px "+data.margeLeft+"px;padding: "+data.paddingUp+"px "+data.paddingRight+"px "+data.paddingDown+"px "+data.paddingLeft+"px"+"justify-content:"+data.alignment]
 		if(data.borderHeight > 0 && data.borderType !== "Sans Bordure"){
 			sectionStyle.push("border:"+data.borderHeight+"px "+data.borderColor+" "+data.borderType+";")
 		}
@@ -295,11 +320,21 @@ $(document).ready(function(){
 	})
 
 	let dropItemBloc = false
-	$(".modal-update-bloc").on('click', '.drop-item', function(){
+	$(".modal-update-bloc").on('click', '.bordure-drop-item', function(){
 		dropItemBloc = true
 		let dropValue = $(this).text()
 		$(this).closest('.title').find('.borderInput-bloc').val(dropValue)
+		console.log("ioioioioi--66", $(this).closest('.content-dropdown'))
 		$(this).closest('.content-dropdown').addClass('is_hidden')
+	})
+
+	$('.modal-update-bloc').on('click', '.align-drop-item', function(){
+		let dataItem = $(this).attr('data-item');
+		let data = $(this).text();
+		$(this).closest('.content-input-setting').find('.input-align').val(data)
+		$(this).closest('.content-input-setting').find('.input-align').attr('data-item', dataItem)
+		$(this).closest('.content-dropdown').toggleClass('is_hidden')
+		console.log("YUYUYUYUY----", $(this).closest('.content-dropdown'))
 	})
 	//End Edit Section
 

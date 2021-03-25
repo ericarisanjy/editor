@@ -187,6 +187,10 @@ $(document).ready(function(){
 	
 	$(document).on("click", '.edit-btn', function(){
 		launch_modal("modal-edit-section")
+		$("body,html").animate(
+		{
+			scrollTop: $('.modal-edit-section').offset().top
+		},800);
 		selecteur = $(this)
 		let data = []
 		if($(this).attr('data-bigData')){
@@ -226,31 +230,63 @@ $(document).ready(function(){
 		$('.modal-edit-section').find('.border-height-section').val(borderHeight?borderHeight:"")
 	})
 	  
+	//Create
 	$(document).on("click", '.not_on_modal .defaultSection', function(){
 		let section = $(this).attr('data-section')
           let sectionType = $(this).attr('data-section')
           if(sectionType === "sectionOne"){
-          	$(document).find('.page-container').append(sectionParent)
-          	$(document).find('.section-container:last').append(section100)
-			$(document).find('.section-container:last').attr('data-section', section)
+			console.log('mande tasara', $(document).find('.section-container:last'))
+          	$(".container-create").find('.page-container').append(sectionParent)
+          	$(".container-create").find('.section-container:last').append(section100)
+			$(".container-create").find('.section-container:last').attr('data-section', section)
           }else if(sectionType === "sectionTwo"){
-          	$(document).find('.page-container').append(sectionParent)
+          	$(".container-create").find('.page-container').append(sectionParent)
           	for(var i = 0; i < 2; i++){
-          		$(document).find('.section-container:last').append(section100)
+          		$(".container-create").find('.section-container:last').append(section100)
           	}
-			$(document).find('.section-container:last').attr('data-section', section)
+			$(".container-create").find('.section-container:last').attr('data-section', section)
           }else if(sectionType === "sectionThree"){
-          	$(document).find('.page-container').append(sectionParent)
-          	$(document).find('.section-container:last').append(section100)
-          	$(document).find('.section-container:last').append(section35)
-			$(document).find('.section-container:last').attr('data-section', section)
+          	$(".container-create").find('.page-container').append(sectionParent)
+          	$(".container-create").find('.section-container:last').append(section100)
+          	$(".container-create").find('.section-container:last').append(section35)
+			$(".container-create").find('.section-container:last').attr('data-section', section)
           }else if(sectionType === "sectionFour"){
-          	$(document).find('.page-container').append(sectionParent)
-          	$(document).find('.section-container:last').append(section35)
-          	$(document).find('.section-container:last').append(section100)
-			$(document).find('.section-container:last').attr('data-section', section)
+          	$(".container-create").find('.page-container').append(sectionParent)
+          	$(".container-create").find('.section-container:last').append(section35)
+          	$(".container-create").find('.section-container:last').append(section100)
+			$(".container-create").find('.section-container:last').attr('data-section', section)
           }else{
-          	$(document).find('.not_on_modal').find('.nbre_col').removeClass('is_hidden')
+          	$(".container-create").find('.not_on_modal').find('.nbre_col').removeClass('is_hidden')
+          }
+	})
+
+	// Update
+	$(document).on("click", '.not_on_modal .defaultSection', function(){
+		let section = $(this).attr('data-section')
+          let sectionType = $(this).attr('data-section')
+          if(sectionType === "sectionOne"){
+			console.log('mande tasara', $(document).find('.section-container:last'))
+          	$(".container-update").find('.page-container').append(sectionParent)
+          	$(".container-update").find('.section-container:last').append(section100)
+			$(".container-update").find('.section-container:last').attr('data-section', section)
+          }else if(sectionType === "sectionTwo"){
+          	$(".container-update").find('.page-container').append(sectionParent)
+          	for(var i = 0; i < 2; i++){
+          		$(".container-update").find('.section-container:last').append(section100)
+          	}
+			$(".container-update").find('.section-container:last').attr('data-section', section)
+          }else if(sectionType === "sectionThree"){
+          	$(".container-update").find('.page-container').append(sectionParent)
+          	$(".container-update").find('.section-container:last').append(section100)
+          	$(".container-update").find('.section-container:last').append(section35)
+			$(".container-update").find('.section-container:last').attr('data-section', section)
+          }else if(sectionType === "sectionFour"){
+          	$(".container-update").find('.page-container').append(sectionParent)
+          	$(".container-update").find('.section-container:last').append(section35)
+          	$(".container-update").find('.section-container:last').append(section100)
+			$(".container-update").find('.section-container:last').attr('data-section', section)
+          }else{
+          	$(".container-update").find('.not_on_modal').find('.nbre_col').removeClass('is_hidden')
           }
 	})
 
@@ -373,6 +409,10 @@ $(document).ready(function(){
 		$('.modal-edit-img').find('.input-align').val(imgStyle.alignValue)
 		$('.modal-edit-img').find('.input-align').attr('data-item', imgStyle.align)
 		launch_modal('modal-edit-img')
+		$("body,html").animate(
+		{
+			scrollTop: $('.modal-edit-img').find('.modal-content').offset().top
+		},800);
 	})
 
 	$('.modal-edit-img').on('click', '.closed', function(){
@@ -447,6 +487,7 @@ $(document).ready(function(){
 			</div>\
 			</div>\
 		</div>'
+		console.log("mande", $(document).find('.container-create').find('.page-container'))
 		$(document).find('.container-create').find('.page-container').html(html)
 	})
 	$(".container-create").on('click', '.btn-register', function(){
@@ -462,6 +503,8 @@ $(document).ready(function(){
 		let title = $(document).find(".container-create-input").find('.pageName').val()
 		let description = $(document).find(".container-create-input").find('.pagedescription').val()
 		let content = htmlToPreview
+		console.log("uIUIUIUIU----", content);
+		let pageUrl = $(document).find(".container-create-input").find('.pageUrl').val()
 		$.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -471,22 +514,35 @@ $(document).ready(function(){
             type: "POST",
             url: 'function.php',
 			dataType: 'json',
-            data: {title: title, description: description, content: content},
+            data: {title: title, description: description, content: content, pageUrl: pageUrl},
             success: function(responses){
 				tableResponse(responses)
 				$(document).find('.create-page-item').addClass('is_hidden')
-                // $(document).find('.list-commune').html(responses);
-                // $(document).find('input').val("");
-             // toastr.success('Commune enregistrer avec success')
+            	toastr.success('Page enregistrer avec success')
          	},
-           	error: function(error){
-             //toastr.success('Une erreur est survenue lors de l\'enregistrement')
+           	error: function(error, res){
+            	toastr.warning('Une erreur est survenue lors de l\'enregistrement')
          	}
         });
 		return false
 	})
+	$('.container-create-input').on('change', '.pageName', function(){
+		let pageName = $(this).val()
+		let pageUrl = pageName.replace(/ /g, '_');
+		let url = window.location.href
+		urlSplit = url.split('home')
+		$('.container-create-input').find('.pageUrl').val(urlSplit[0]+"output.php"+"?pageName="+pageUrl)
+	})
+	$('.container-update-input').on('change', '.pageName', function(){
+		let pageName = $(this).val()
+		let pageUrl = pageName.replace(/ /g, '_');
+		let url = window.location.href
+		urlSplit = url.split('home')
+		$('.container-update-input').find('.pageUrl').val(urlSplit[0]+"output.php"+"?pageName="+pageUrl)
+	})
 	$(".container-update").on('click', '.btn-register', function(){
 		htmlToPreview = $(document).find(".container-update").find('.page-container').html()
+		console.log('UIUI- ', htmlToPreview)
 		$(document).find(".container-update").find('.sectionOne').addClass('is_hidden')
 		$(document).find(".container-update").find('.section-header').addClass('is_hidden')
 		$(document).find(".container-update").find('.content-btn-act').addClass('is_hidden')
@@ -498,6 +554,7 @@ $(document).ready(function(){
 		let description = $(document).find(".container-update-input").find('.pagedescription').val()
 		let content = htmlToPreview
 		let pageId = $(this).attr('data-pageid')
+		let pageUrl = $(document).find(".container-update-input").find('.pageUrl').val()
 		$.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -507,16 +564,14 @@ $(document).ready(function(){
             type: "POST",
             url: 'function.php',
 			dataType: 'json',
-            data: {idPage: pageId, title: title, description: description, content: content},
+            data: {idPage: pageId, title: title, description: description, content: content, pageUrl: pageUrl},
             success: function(responses){
 				tableResponse(responses)
 				$(document).find('.update-page').addClass('is_hidden')
-                // $(document).find('.list-commune').html(responses);
-                // $(document).find('input').val("");
-             // toastr.success('Commune enregistrer avec success')
+            	toastr.success('Page enregistrer avec success')
          	},
            	error: function(error){
-             //toastr.success('Une erreur est survenue lors de l\'enregistrement')
+             	toastr.warning('Une erreur est survenue lors de l\'enregistrement')
          	}
         });
 		return false
@@ -535,12 +590,10 @@ $(document).ready(function(){
             data: {pageId: pageId},
             success: function(responses){
 				tableResponse(responses)
-                // $(document).find('.list-commune').html(responses);
-                // $(document).find('input').val("");
-             // toastr.success('Commune enregistrer avec success')
+            	toastr.success('Page supprimer avec success')
          	},
            	error: function(error){
-             //toastr.success('Une erreur est survenue lors de l\'enregistrement')
+             	toastr.success('Une erreur est survenue lors de la suppression')
          	}
         });
 		return false
@@ -564,10 +617,16 @@ $(document).ready(function(){
 				$(document).find('.container-update-input').find('.pageName').val(responses[0].title)
 				$(document).find('.container-update-input').find('.pagedescription').val(responses[0].description)
 				$(document).find('.container-update').find('.btn-register').attr('data-pageid', responses[0].id)
-                $(document).find('.container-update').find('.page-container').html(responses[0].content)
+				console.log('UIUIUIUI---', responses[0].content)
+				let content = responses[0].content
+				content = content.replace('"{', "'{")
+				content = content.replace('}"', "}'")
+                $(document).find('.container-update').find('.page-container').html(content)
+				$(document).find('.container-update-input').find('.pageUrl').val(responses[0].url)
+				
             },
             error: function(error){
-                //toastr.success('Une erreur est survenue lors de l\'enregistrement')
+                toastr.success('Une erreur est survenue lors de l\'enregistrement')
             }
         });
 		return false
@@ -604,7 +663,7 @@ tableResponse=(response)=>{
 	$(document).find('tbody').html("")
 	for(let unit of response){
 		let html = "<tr><td>"+unit.id+"</td><td class='td-title'>"+unit.title+"</td><td>"+unit.description+"</td>\
-		<td class='td-action'><button class='btn-valid' data-pageid='"+unit.id+"'>Edit</button>\
+		<td><a href='"+unit.url+"' target='_blank'>"+unit.url+"</a></td><td class='td-action'><button class='btn-valid' data-pageid='"+unit.id+"'>Edit</button>\
 		<button class='btn-delete' data-pageid='"+unit.id+"'>Supprimer</button></td></tr>"
 		$(document).find('tbody').append(html)
 	}

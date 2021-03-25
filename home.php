@@ -48,6 +48,9 @@
               <td>
                 Decription
               </td>
+              <td>
+                URL
+              </td>
               <td class="td-action">
                 Action
               </td>
@@ -55,7 +58,8 @@
           </thead>
           <tbody>
             <?php
-              foreach($result->fetchAll() as $unit){
+              if($result){
+                foreach($result->fetchAll() as $unit){
             ?>
               <tr>
                 <td>
@@ -73,6 +77,13 @@
                     echo $unit["description"]
                   ?>
                 </td>
+                <td>
+                  <a href="<?php echo $unit["url"] ?>" target='_blank'>
+                    <?php
+                      echo $unit["url"]
+                    ?>
+                  </a>
+                </td>
                 <td class="td-action">
                   <button class="btn-valid" data-pageid="<?php echo $unit['id'] ?>">Edit</button>
                   <button class="btn-delete" data-pageid="<?php echo $unit['id'] ?>">Supprimer</button>
@@ -80,6 +91,7 @@
               </tr>
             <?php
               }
+            }
             ?>
           </tbody>
         </table>
