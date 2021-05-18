@@ -1,5 +1,5 @@
 <div class="modal modal-add-text is_hidden">
-	<div class="modal-content content_modal_insert_table" style="width: 72%;">
+	<div class="modal-content content_modal_insert_text">
 		<div class="modal-head">
 			<span class="txt-head">Ajouter un texte</span>
 			<span class="closed">x</span>
@@ -21,7 +21,7 @@
 			            ['TextColor','BGColor']
 			        ], toolbarCanCollapse:false, height: '300px', scayt_sLang: 'pt_PT', uiColor : '#EBEBEB' } );
 			</script>
-			<div class="content-btn btn-insert-table">
+			<div class="content-btn btn-insert-table justify_content_center">
 				<button class="btn-valid">Valider</button>
 			</div>
 		</div>

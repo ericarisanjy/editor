@@ -1,4 +1,4 @@
-<div class="modal modal-add-bloc is_hidden">
+<div class="modal modal-modif-bloc is_hidden">
 	<div class="modal-content content_modal_update_bloc">
 		<div class="modal-head">
 			<span class="txt-head"></span>

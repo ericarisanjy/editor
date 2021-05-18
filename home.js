@@ -1,6 +1,11 @@
 let selecteur = ""
+let imageSelector = ""
 let imgData = "";
+let imgSelected = "";
+let imgLoaded = []
 let sectionDataOnModal = ""
+let imageId = 0
+let createIsTrue = true
 let section100On = '<div class="section-child content-sections">\
               <div class="section-item border-dashed-blue min-height-150"  data-section="1">\
               </div>\
@@ -37,7 +42,12 @@ let section100On = '<div class="section-child content-sections">\
 	              </div>\
               </div>\
             </div>'
-    let sectionParentOn = '<div class="section-containerOn">\
+    let sectionParentOn = '<div class="section-containerOn" data-bloc="">\
+			<div class="content-three-dots">\
+			<div class="three-dots">.</div>\
+			<div class="three-dots">.</div>\
+			<div class="three-dots">.</div>\
+		</div>\
           </div>'
 
     let section100 = '<div class="content-sections">\
@@ -48,9 +58,6 @@ let section100On = '<div class="section-child content-sections">\
               <div class="section-parent section-item border-dashed min-height-150"  data-section="1">\
               </div>\
               <div class="content-btn-act is_hidden">\
-              	<div class="copy-bloc-btn">\
-                  <i class="fa fa-files-o" aria-hidden="true"></i>\
-                </div>\
                 <div class="add-bloc-btn">\
                   <i class="fa fa-th" aria-hidden="true"></i>\
                 </div>\
@@ -67,9 +74,6 @@ let section100On = '<div class="section-child content-sections">\
               <div class="section-parent section-item border-dashed min-height-150"  data-section="1">\
               </div>\
               <div class="content-btn-act is_hidden">\
-              	<div class="copy-bloc-btn">\
-                  <i class="fa fa-files-o" aria-hidden="true"></i>\
-                </div>\
                 <div class="add-bloc-btn">\
                   <i class="fa fa-th" aria-hidden="true"></i>\
                 </div>\
@@ -83,6 +87,7 @@ let section100On = '<div class="section-child content-sections">\
               <div class="section-side">\
                 <i class="fa fa-pencil-square-o edit-section-btn" aria-hidden="true"></i>\
                 <i class="fa fa-trash delete-section-btn" aria-hidden="true"></i>\
+				<i class="fa fa-files-o copy-bloc-btn" aria-hidden="true"></i>\
               </div>\
             </div>\
           </div>'   
@@ -121,6 +126,7 @@ $(document).ready(function(){
 
     $(document).on('click', '.copy-bloc-btn', function(){
     	let clone = $(this).closest('.section-container').clone()
+		console.log('mande', $(document).find('.section-container:last'))
     	clone.insertAfter($(document).find('.section-container:last'))
     })
     
@@ -154,6 +160,8 @@ $(document).ready(function(){
 		let borderType = $('.modal-edit-bloc').find('.borderInput-bloc').val()
 		let borderColor = $('.modal-edit-bloc').find('.border-color-bloc').val()
 		let borderHeight = $('.modal-edit-bloc').find('.border-height-bloc').val()
+		let align = $('.modal-edit-bloc').find('.input-align').attr('data-item')
+		let alignValue = $('.modal-edit-bloc').find('.input-align').val()
 
 		let data = {
 			textColor: textBlocChange?textColor:"inherit",
@@ -168,6 +176,8 @@ $(document).ready(function(){
 			paddingRight: paddingRight === ""?0:paddingRight,
 			class: classe,
 			id: id,
+			align,
+			alignValue,
 			borderType: borderType === ""?"":borderType,
 			borderColor: borderColor === ""?0:borderColor,
 			borderHeight: borderHeight === ""?0:borderHeight,
@@ -181,7 +191,7 @@ $(document).ready(function(){
 			blocStyle.push("border:"+data.borderHeight+"px "+data.borderColor+" "+data.borderType+" !important;")
 		}
 		selecteur.closest('.content-btn-act-on').siblings('.section-item').attr('style', blocStyle.join(";"))
-
+		selecteur.closest(".content-sections").find('.paragraph-container').attr('style', "text-align:"+data.align)
     })
 
 	
@@ -235,7 +245,6 @@ $(document).ready(function(){
 		let section = $(this).attr('data-section')
           let sectionType = $(this).attr('data-section')
           if(sectionType === "sectionOne"){
-			console.log('mande tasara', $(document).find('.section-container:last'))
           	$(".container-create").find('.page-container').append(sectionParent)
           	$(".container-create").find('.section-container:last').append(section100)
 			$(".container-create").find('.section-container:last').attr('data-section', section)
@@ -265,7 +274,6 @@ $(document).ready(function(){
 		let section = $(this).attr('data-section')
           let sectionType = $(this).attr('data-section')
           if(sectionType === "sectionOne"){
-			console.log('mande tasara', $(document).find('.section-container:last'))
           	$(".container-update").find('.page-container').append(sectionParent)
           	$(".container-update").find('.section-container:last').append(section100)
 			$(".container-update").find('.section-container:last').attr('data-section', section)
@@ -293,32 +301,52 @@ $(document).ready(function(){
 	$(document).on('click', '.unit-img', function(){
 		$(this).siblings().removeClass('active')
 		$(this).addClass('active')
-		imgData = $(this).find('img').attr('src')
+		imgSelected = $(this).find('img').attr('src')
+		$(document).find('.image-display').attr('src', imgSelected)
 	})
 
-	
+	$(document).on('keyup', '.not_on_modal .nbre_col', function(e){
+		if(e.keyCode === 13){
+			let nbre_col = $(this).val();
+			if(nbre_col === "1"){
+				$(".container-update").find('.page-container').append(sectionParent)
+				$(".container-update").find('.section-container:last').append(section100)
+				//$(".container-create").find('.section-container:last').attr('data-section', section)  
+			}else if(nbre_col === "2"){
+				$(".container-update").find('.page-container').append(sectionParent)
+				for(var i = 0; i < 2; i++){
+					$(".container-update").find('.section-container:last').append(section100)
+				}
+			}else{
+				$(".container-update").find('.page-container').append(sectionParent)
+				for(var i = 0; i < nbre_col; i++){
+					$(".container-update").find('.section-container:last').append(section100)
+				}
+			}
+			$(this).addClass('is_hidden')
+		}
+	})
 
-	
-
-	
-
-	$(document).on('change', '.not_on_modal .nbre_col', function(){
-		let nbre_col = $(this).val();
-		if(nbre_col === "1"){
-          	$(document).find('.page-container').append(sectionParent)
-          	$(document).find('.section-container:last').append(section100)
-      	}else if(nbre_col === "2"){
-      		$(document).find('.page-container').append(sectionParent)
-      		for(var i = 0; i < 2; i++){
-      			$(document).find('.section-container:last').append(section100)
-      		}
-      	}else{
-      		$(document).find('.page-container').append(sectionParent)
-      		for(var i = 0; i < nbre_col; i++){
-      			$(document).find('.section-container:last').append(section100)
-      		}
-      	}
-      	$(this).addClass('is_hidden')
+	$(document).on('keyup', '.not_on_modal .nbre_col', function(e){
+		if(e.keyCode === 13){
+			let nbre_col = $(this).val();
+			if(nbre_col === "1"){
+				$(".container-create").find('.page-container').append(sectionParent)
+				$(".container-create").find('.section-container:last').append(section100)
+				//$(".container-create").find('.section-container:last').attr('data-section', section)  
+			}else if(nbre_col === "2"){
+				$(".container-create").find('.page-container').append(sectionParent)
+				for(var i = 0; i < 2; i++){
+					$(".container-create").find('.section-container:last').append(section100)
+				}
+			}else{
+				$(".container-create").find('.page-container').append(sectionParent)
+				for(var i = 0; i < nbre_col; i++){
+					$(".container-create").find('.section-container:last').append(section100)
+				}
+			}
+			$(this).addClass('is_hidden')
+		}
 	})
 
 	$('.page-container').dad();
@@ -330,27 +358,32 @@ $(document).ready(function(){
 	$(".modal-add-text").on("click", '.closed', function(){
 		close_modal('modal-add-text')
 	})
-	$(document).on('change', '.cke_editable', function(){
-		console.log('mande tsara')
-	})
 	$(".modal-add-text").on("click", '.btn-valid', function(){
 		let result = $('.editor').val()
 		let finallyValue = ""
-		if(selecteur.closest('.section-header').siblings('.section-item').find('.paragraph-container').length != 0 || selecteur.closest('.content-btn-act-on').siblings('.section-item').find('.paragraph-container').length != 0){
-			finallyValue = result
-			if(selecteur.closest('.section-header').siblings('.section-item').length != 0){
-				selecteur.closest('.section-header').siblings('.section-item').find('.paragraph-container').html(finallyValue)
-			}else{
-				selecteur.closest('.content-btn-act-on').siblings('.section-item').find('.paragraph-container').html(finallyValue)
-			}
+		if(createIsTrue){
+			// if(selecteur.closest('.section-header').siblings('.section-item').find('.paragraph-container').length != 0 || selecteur.closest('.content-btn-act-on').siblings('.section-item').find('.paragraph-container').length != 0){
+			// 	finallyValue = result
+			// 	if(selecteur.closest('.section-header').siblings('.section-item').length != 0){
+			// 		selecteur.closest('.section-header').siblings('.section-item').find('.paragraph-container').append(finallyValue)
+			// 	}else{
+			// 		selecteur.closest('.content-btn-act-on').siblings('.section-item').find('.paragraph-container').append(finallyValue)
+			// 	}
+			// }else{
+				finallyValue = '<div class="paragraph-container">'+result+'<i class="fa fa-pencil update-text-btn" aria-hidden="true"></i></div>'
+				if(selecteur.closest('.section-header').siblings('.section-item').length != 0){
+					selecteur.closest('.section-header').siblings('.section-item').append(finallyValue)
+				}else{
+					console.log('iicicicic')
+					selecteur.closest('.content-btn-act-on').siblings('.section-item').append(finallyValue)
+				}
+			// }
 		}else{
-			finallyValue = '<div class="paragraph-container">'+result+'</>'
-			if(selecteur.closest('.section-header').siblings('.section-item').length != 0){
-				selecteur.closest('.section-header').siblings('.section-item').append(finallyValue)
-			}else{
-				selecteur.closest('.content-btn-act-on').siblings('.section-item').append(finallyValue)
-			}
+			finallyValue = result
+			let btn = '<i class="fa fa-pencil update-text-btn" aria-hidden="true"></i>'
+			selecteur.closest('.paragraph-container').html(finallyValue+btn)
 		}
+		
 		
 		close_modal('modal-add-text')
 	})
@@ -363,13 +396,21 @@ $(document).ready(function(){
 	})
 
 	
-	$('.modal-edit-section').on('click', '.drop-item', function(){
+	$('.modal-edit-section').on('click', '.bordure-drop-item', function(){
 		dropItem = $(this).text()
 		$(this).parent().addClass('is_hidden')
 		$(".modal-edit-section").find('.borderInput-section').val(dropItem)
 	})
 
-	$('.modal-edit-bloc').on('click', '.drop-item', function(){
+	$('.modal-edit-section').on('click', '.align-drop-item', function(){
+		let dataItem = $(this).attr('data-item');
+		let data = $(this).text();
+		$(this).closest('.content-input-setting').find('.input-align').val(data)
+		$(this).closest('.content-input-setting').find('.input-align').attr('data-item', dataItem)
+		$(this).closest('.content-dropdown').toggleClass('is_hidden')
+	})
+
+	$('.modal-edit-bloc').on('click', '.bordure-drop-item', function(){
 		dropItem = $(this).text()
 		$(this).parent().addClass('is_hidden')
 		$(".modal-edit-bloc").find('.borderInput-bloc').val(dropItem)
@@ -395,11 +436,12 @@ $(document).ready(function(){
 	}
 	$('.edit-btn').attr('data-bigData', JSON.stringify(data))
 
-	$(document).on('dblclick', '.content-insert-img', function(){
-		selecteur = $(this)
+	$(document).on('click', '.edit-btn-img', function(e){
+		imageSelector = $(this).parent()
+		imageId = $(this).parent().attr('data-imageid')
 		let imgStyle = []
-		if(selecteur.attr('data-imgStyle')){
-			imgStyle = JSON.parse($(selecteur).attr('data-imgStyle'))
+		if(imageSelector.attr('data-imgStyle')){
+			imgStyle = JSON.parse($(imageSelector).attr('data-imgStyle'))
 		}
 		$('.modal-edit-img').find('.input-title').val(imgStyle.title)
 		$('.modal-edit-img').find('.input-alt').val(imgStyle.alt)
@@ -409,6 +451,52 @@ $(document).ready(function(){
 		$('.modal-edit-img').find('.input-align').val(imgStyle.alignValue)
 		$('.modal-edit-img').find('.input-align').attr('data-item', imgStyle.align)
 		launch_modal('modal-edit-img')
+		
+		$(document).find('.image-display').removeAttr("src")
+		$(document).find('.input-width').val('')
+		$(document).find('.input-height').val('')
+		$(".modal-edit-img").find('.input-title').val(imgStyle.title)
+		$(".modal-edit-img").find('.input-alt').val(imgStyle.alt)
+		$(".modal-edit-img").find('.input-width').val(imgStyle.width)
+		$(".modal-edit-img").find('.input-height').val(imgStyle.height)
+		$(".modal-edit-img").find('.input-align').val(imgStyle.alignValue)
+		$(".modal-edit-img").find('.input-align').attr('data-item',imgStyle.align)
+		$(".modal-edit-img").find('.check-link').attr('checked',imgStyle.link)
+		$(".modal-edit-img").find('.check-link-target').attr('checked',imgStyle.linkTarget)
+		$(".modal-edit-img").find('.input-link').val(imgStyle.linkValue)
+		if(imgStyle.link){
+			$(".modal-edit-img").find('.input-link').removeClass('is_hidden')
+		}
+		imgLoaded = removeDuplicates(imgLoaded)
+		$(".modal-edit-img").find('.content-img').html('')
+		let getImage = "getImage"
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+		$.ajax({
+			type: "POST",
+			url: 'getFunction.php',
+			dataType: 'json',
+			data: {getImage: getImage},
+			success: function(responses){
+				if(responses.length){
+					for(let value of responses){
+						let html = '<div class="unit-img">\
+							<img src="'+value.filename+'">\
+						</div>'
+						$(".modal-edit-img").find('.content-img').prepend(html)
+					}
+				}else{
+					$(".modal-edit-img").find('.media-storage').addClass('grised')
+				}
+				},
+				error: function(error){
+					console.log(error)
+					toastr.warning('Une erreur est survenue lors de la suppression')
+				}
+		});
 		$("body,html").animate(
 		{
 			scrollTop: $('.modal-edit-img').find('.modal-content').offset().top
@@ -422,7 +510,7 @@ $(document).ready(function(){
 	$('.modal-edit-img').on('click', '.btn-valid', function(){
 		let width = $(".modal-edit-img").find('.width-image').val()
 		let height = $(".modal-edit-img").find('.height-image').val()
-		selecteur.closest('.content-insert-img').attr('style',"width:"+width+"px;height:"+height+"px")
+		imageSelector.closest('.content-insert-img').attr('style',"width:"+width+"px;height:"+height+"px")
 		close_modal('modal-edit-img')
 	})
 
@@ -445,6 +533,8 @@ $(document).ready(function(){
 		$(document).find('.content-btn-register').addClass('is_hidden')
 		$(document).find('.bloc-container').addClass('is_hidden')
 		$(document).find('.close-preview').removeClass('is_hidden')
+		$(document).find('.content-three-dots').addClass('is_hidden')
+		$(document).find('.edit-btn-img').addClass('is_hidden')
 
 	})
 	$(document).on('click', '.close-preview', function(){
@@ -452,6 +542,8 @@ $(document).ready(function(){
 		$(document).find('.body-container').removeClass('is_hidden')
 		$(document).find('.content-btn-register').removeClass('is_hidden')
 		$(document).find('.bloc-container').removeClass('is_hidden')
+		$(document).find('.content-three-dots').removeClass('is_hidden')
+		$(document).find('.edit-btn-img').removeClass('is_hidden')
 		$(this).addClass('is_hidden')
 		htmlToPreview.forEach(function(el){
 			$(document).find('.content-sections').append(el)
@@ -465,6 +557,7 @@ $(document).ready(function(){
 			<div class="section-side">\
 				<i class="fa fa-pencil-square-o edit-section-btn" aria-hidden="true"></i>\
 				<i class="fa fa-trash delete-section-btn" aria-hidden="true"></i>\
+				<i class="fa fa-files-o copy-bloc-btn" aria-hidden="true"></i>\
 			</div>\
 			</div>\
 			<div class="content-sections">\
@@ -475,9 +568,6 @@ $(document).ready(function(){
 			<div class="section-parent section-item border-dashed min-height-150"  data-section="1">\
 			</div>\
 			<div class="content-btn-act is_hidden">\
-				<div class="copy-bloc-btn">\
-				<i class="fa fa-files-o" aria-hidden="true"></i>\
-				</div>\
 				<div class="add-bloc-btn">\
 				<i class="fa fa-th" aria-hidden="true"></i>\
 				</div>\
@@ -487,43 +577,45 @@ $(document).ready(function(){
 			</div>\
 			</div>\
 		</div>'
-		console.log("mande", $(document).find('.container-create').find('.page-container'))
 		$(document).find('.container-create').find('.page-container').html(html)
 	})
 	$(".container-create").on('click', '.btn-register', function(){
-		htmlToPreview = $(document).find(".container-create").find('.page-container').html()
-		$(document).find(".container-create").find('.sectionOne').addClass('is_hidden')
-		$(document).find(".container-create").find('.section-header').addClass('is_hidden')
-		$(document).find(".container-create").find('.content-btn-act').addClass('is_hidden')
-		$(document).find(".container-create").find('.section-parent').removeClass('border-dashed')
-		$(document).find(".container-create").find('.section-child').find('.section-item').removeClass('border-dashed-blue')
-		$(document).find(".container-create").find('.section-child').find('.content-btn-act-on').addClass('is_hidden')
-
-
 		let title = $(document).find(".container-create-input").find('.pageName').val()
 		let description = $(document).find(".container-create-input").find('.pagedescription').val()
 		let content = htmlToPreview
-		console.log("uIUIUIUIU----", content);
 		let pageUrl = $(document).find(".container-create-input").find('.pageUrl').val()
-		$.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-		$.ajax({
-            type: "POST",
-            url: 'function.php',
-			dataType: 'json',
-            data: {title: title, description: description, content: content, pageUrl: pageUrl},
-            success: function(responses){
-				tableResponse(responses)
-				$(document).find('.create-page-item').addClass('is_hidden')
-            	toastr.success('Page enregistrer avec success')
-         	},
-           	error: function(error, res){
-            	toastr.warning('Une erreur est survenue lors de l\'enregistrement')
-         	}
-        });
+		if(title !== "" && description !== ""){
+			htmlToPreview = $(document).find(".container-create").find('.page-container').html()
+			$(document).find(".container-create").find('.sectionOne').addClass('is_hidden')
+			$(document).find(".container-create").find('.section-header').addClass('is_hidden')
+			$(document).find(".container-create").find('.content-btn-act').addClass('is_hidden')
+			$(document).find(".container-create").find('.section-parent').removeClass('border-dashed')
+			$(document).find(".container-create").find('.content-three-dots').addClass('is_hidden')
+			$(document).find(".container-create").find('.section-child').find('.section-item').removeClass('border-dashed-blue')
+			$(document).find(".container-create").find('.section-child').find('.content-btn-act-on').addClass('is_hidden')
+			$(document).find(".container-create").find('.edit-btn-img').addClass('is_hidden')
+			$.ajaxSetup({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				}
+			});
+			$.ajax({
+				type: "POST",
+				url: 'function.php',
+				dataType: 'json',
+				data: {title: title, description: description, content: content, pageUrl: pageUrl},
+				success: function(responses){
+					tableResponse(responses)
+					$(document).find('.create-page-item').addClass('is_hidden')
+					toastr.success('Page enregistrer avec success')
+				 },
+				   error: function(error, res){
+					toastr.warning('Une erreur est survenue lors de l\'enregistrement')
+				 }
+			});
+		}else{
+			toastr.warning('Veuillez saisir la titre et la description de la page avant d\'enregistrer')
+		}
 		return false
 	})
 	$('.container-create-input').on('change', '.pageName', function(){
@@ -541,39 +633,45 @@ $(document).ready(function(){
 		$('.container-update-input').find('.pageUrl').val(urlSplit[0]+"output.php"+"?pageName="+pageUrl)
 	})
 	$(".container-update").on('click', '.btn-register', function(){
-		htmlToPreview = $(document).find(".container-update").find('.page-container').html()
-		console.log('UIUI- ', htmlToPreview)
-		$(document).find(".container-update").find('.sectionOne').addClass('is_hidden')
-		$(document).find(".container-update").find('.section-header').addClass('is_hidden')
-		$(document).find(".container-update").find('.content-btn-act').addClass('is_hidden')
-		$(document).find(".container-update").find('.section-parent').removeClass('border-dashed')
-		$(document).find(".container-update").find('.section-child').find('.section-item').removeClass('border-dashed-blue')
-		$(document).find(".container-update").find('.section-child').find('.content-btn-act-on').addClass('is_hidden')
-
 		let title = $(document).find(".container-update-input").find('.pageName').val()
 		let description = $(document).find(".container-update-input").find('.pagedescription').val()
 		let content = htmlToPreview
 		let pageId = $(this).attr('data-pageid')
 		let pageUrl = $(document).find(".container-update-input").find('.pageUrl').val()
-		$.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-		$.ajax({
-            type: "POST",
-            url: 'function.php',
-			dataType: 'json',
-            data: {idPage: pageId, title: title, description: description, content: content, pageUrl: pageUrl},
-            success: function(responses){
-				tableResponse(responses)
-				$(document).find('.update-page').addClass('is_hidden')
-            	toastr.success('Page enregistrer avec success')
-         	},
-           	error: function(error){
-             	toastr.warning('Une erreur est survenue lors de l\'enregistrement')
-         	}
-        });
+		if(title !== "" && description !== ""){
+			htmlToPreview = $(document).find(".container-update").find('.page-container').html()
+			$(document).find(".container-update").find('.sectionOne').addClass('is_hidden')
+			$(document).find(".container-update").find('.section-header').addClass('is_hidden')
+			$(document).find(".container-update").find('.content-btn-act').addClass('is_hidden')
+			$(document).find(".container-update").find('.section-parent').removeClass('border-dashed')
+			$(document).find(".container-update").find('.content-three-dots').addClass('is_hidden')
+			$(document).find(".container-update").find('.section-child').find('.section-item').removeClass('border-dashed-blue')
+			$(document).find(".container-update").find('.section-child').find('.content-btn-act-on').addClass('is_hidden')
+			$(document).find(".container-update").find('.edit-btn-img').addClass('is_hidden')
+
+			
+			$.ajaxSetup({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				}
+			});
+			$.ajax({
+				type: "POST",
+				url: 'function.php',
+				dataType: 'json',
+				data: {idPage: pageId, title: title, description: description, content: content, pageUrl: pageUrl},
+				success: function(responses){
+					tableResponse(responses)
+					$(document).find('.update-page').addClass('is_hidden')
+					toastr.success('Page enregistrer avec success')
+				},
+				error: function(error){
+					toastr.warning('Une erreur est survenue lors de l\'enregistrement')
+				}
+			});
+		}else{
+			toastr.warning('Veuillez saisir la titre et la description de la page avant d\'enregistrer')
+		}
 		return false
 	})
 	$('.container-page-list').on('click', '.btn-delete', function(){
@@ -617,13 +715,18 @@ $(document).ready(function(){
 				$(document).find('.container-update-input').find('.pageName').val(responses[0].title)
 				$(document).find('.container-update-input').find('.pagedescription').val(responses[0].description)
 				$(document).find('.container-update').find('.btn-register').attr('data-pageid', responses[0].id)
-				console.log('UIUIUIUI---', responses[0].content)
 				let content = responses[0].content
 				content = content.replace('"{', "'{")
 				content = content.replace('}"', "}'")
                 $(document).find('.container-update').find('.page-container').html(content)
 				$(document).find('.container-update-input').find('.pageUrl').val(responses[0].url)
-				
+				$(document).find(".container-update").find('.sectionOne').removeClass('is_hidden')
+				$(document).find(".container-update").find('.section-header').removeClass('is_hidden')
+				$(document).find(".container-update").find('.content-btn-act').removeClass('is_hidden')
+				$(document).find(".container-update").find('.section-parent').addClass('border-dashed')
+				$(document).find(".container-update").find('.content-three-dots').addClass('is_hidden')
+				$(document).find(".container-update").find('.section-child').find('.section-item').addClass('border-dashed-blue')
+				$(document).find(".container-update").find('.section-child').find('.content-btn-act-on').removeClass('is_hidden')
             },
             error: function(error){
                 toastr.success('Une erreur est survenue lors de l\'enregistrement')
@@ -635,11 +738,15 @@ $(document).ready(function(){
 function launch_modal(selector){
 	$("."+selector).removeClass('is_hidden')
 	$(".container").addClass('is_blurred')
+	$(".container-page-list").addClass('is_blurred')
+	$(".create-page-container").addClass('is_blurred')
 	$("body").addClass("no_scroll")
 }
 function close_modal(selector){
 	$("."+selector).addClass('is_hidden')
 	$(".container").removeClass('is_blurred')
+	$(".container-page-list").removeClass('is_blurred')
+	$(".create-page-container").removeClass('is_blurred')
 	$("body").removeClass("no_scroll")
 }
 function readURLLogo(input, div) {
@@ -648,6 +755,9 @@ function readURLLogo(input, div) {
             var reader = new FileReader();
             reader.onload = function (e) {
             	imgData = e.target.result
+				imgLoaded.push(imgData)
+				localStorage.setItem('ImgLoaded', JSON.stringify(imgLoaded))
+				$(document).find('.image-display').attr('src', imgData)
             }
             reader.readAsDataURL(input.files[0]);
             $('p.infoLogo').text('');
@@ -657,6 +767,16 @@ function readURLLogo(input, div) {
             //$('#img_entreprise').attr('src', 's');
         }
     }
+}
+
+function removeDuplicates(colors) {
+	let unique = {};
+	colors.forEach(function(i) {
+	  if(!unique[i]) {
+		unique[i] = true;
+	  }
+	});
+	return Object.keys(unique);
 }
 
 tableResponse=(response)=>{

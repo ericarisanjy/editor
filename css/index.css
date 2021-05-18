@@ -13,6 +13,7 @@ html, body{
 .section-containerOn{
     display: flex;
     width: 100%;
+    position: relative;
 }
 .content-sections {
     width: 100%;
@@ -43,10 +44,13 @@ html, body{
     justify-content: space-evenly;
 }
 .grised{
-    background: #c7c6c6;
-    color: gray;
+    background: #c7c6c6 !important;
+    color: gray !important;
     border-radius: 2px;
     cursor: not-allowed !important;
+}
+.parameter-title{
+    cursor: pointer;
 }
 .add-text{
     margin-right: 1rem;
@@ -58,7 +62,7 @@ html, body{
     justify-content: center;
     font-weight: bold;
 }
-.edit-btn, .add-bloc-btn, .copy-bloc-btn {
+.edit-btn, .add-bloc-btn {
     width: 30px;
     height: 30px;
     background: #4b9a56;
@@ -184,6 +188,7 @@ html, body{
 }
 .section-side .fa{
     font-size: 20px !important;
+    margin-bottom: 0.5rem;
 }
 .fa{
     cursor: pointer;
@@ -226,6 +231,13 @@ html, body{
     display: flex;
     width: 5rem;
     position: relative;
+    align-items: center;
+}
+.image-attribut, .image-setting{
+    cursor: pointer;
+}
+.caret{
+    margin-left: 1rem;
 }
 .content-dropdown{
     display: flex;
@@ -500,8 +512,7 @@ html, body{
     border: 1px solid;
 }
 .content-insert-img{
-    width: 280px;
-    height: 200px;
+    position: relative;
 }
 .color {
     width: 16px;
@@ -573,6 +584,7 @@ html, body{
     max-height: 240px;
     align-items: center;
     overflow-y: auto;
+    margin-top: 35px;
 }
 .closed {
     right: 20px;
@@ -580,6 +592,7 @@ html, body{
     font-size: 27px;
     top: 10px;
     cursor: pointer;
+    font-family: cursive;
 }
 .content-img img{
     width: 100%;
@@ -602,7 +615,7 @@ html, body{
     justify-content: space-between;
     margin-bottom: 1rem;
 }
-.local-storage {
+.local-storage, .media-storage {
     background: #7ae608cf;
     border: none;
     border-radius: 5px;
@@ -616,8 +629,24 @@ html, body{
     width: 270px;
     display: flex;
     flex-direction: column;
-    height: 170px;
-    justify-content: space-around;
+}
+.content-checkbox {
+    display: flex;
+    width: 103%;
+    justify-content: space-between;
+}
+.checkbox-item {
+    display: flex;
+    width: 50%;
+    align-items: center;
+}
+input.check {
+    width: 30px;
+}
+.check-title{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .img-setting {
     width: 100%;
@@ -628,7 +657,12 @@ html, body{
     width: 100%;
     padding-top: 2rem;
 }
+input.check {
+    width: 20px !important;
+    height: 14px !important;
+}
 .img-attribut .content-input {
+    padding-top: 1rem;
     height: 65%;
     width: 100%;
     display: flex;
@@ -682,7 +716,6 @@ p{
     width: 270px;
     display: flex;
     flex-direction: column;
-    height: 214px;
 }
 .setting .title{
     width: 100%;
@@ -738,10 +771,35 @@ p{
 .body_insert_table{
     height: 56%;
 }
+.content-three-dots {
+    font-size: 28px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    align-items: center;
+    z-index: 2;
+    justify-content: center;
+}
+.content-three-dots:hover {
+    background: #ececec;
+    border-radius: 50%;
+}
+.three-dots {
+    height: 0px;
+    padding-bottom: 46px;
+}
 .content-input {
     display: flex;
     justify-content: space-between;
     width: 31%;
+    position: relative;
+}
+.input-link {
+    position: absolute;
+    bottom: -34px;
 }
 .btn-insert-table{
     justify-content: flex-end;
@@ -786,6 +844,7 @@ p{
 .paragraph-container{
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .modal-upload-file .active, .modal-upload-file-two .active, .modal-edit-img .active {
@@ -960,4 +1019,38 @@ button.add-btn {
     width: 300px;
     height: 30px;
     border: none;
+}
+.justify_content_center{
+    justify-content: center !important;
+}
+.content-insert-img .edit-btn-img{
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 10px;
+    cursor: pointer;
+}
+.content_modal_insert_text{
+    width: 72%; 
+    height: 570px;
+}
+.dropdown-alignment{
+    margin-top: 0.5rem;
+    width: 67px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 2px;
+    border: 1px solid #b3b3b3;
+    max-height: 112px;
+    overflow-y: auto;
+    position: absolute;
+    background: white;
+}
+.update-text-btn{
+    position: absolute;
+    right: 3rem;
+    top: 0.2rem;
 }

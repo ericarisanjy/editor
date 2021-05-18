@@ -133,6 +133,9 @@
     @include("modal/border.php")
   ?>
   <?php 
+    @include("modal/confirmDelete.php")
+  ?>
+  <?php 
     @include("modal/classAndId.php")
   ?>
   <?php 
@@ -143,6 +146,9 @@
   ?>
   <?php 
     @include("modal/modal-add-bloc.php")
+  ?>
+  <?php 
+    @include("modal/modal-edit-bloc.php")
   ?>
   <?php 
     @include("modal/editImg.php")

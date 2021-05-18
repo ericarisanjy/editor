@@ -9,7 +9,7 @@
 		if(isset($_POST['idPage']) && $_POST['idPage'] != ""){
 			$pageId = $_POST['idPage'];
 			//Update Commune
-			$sql2="UPDATE `pages` SET `title`=:title, `description`=:description, `content`=:content, `url`=:pageUrl WHERE `id`=:pageId";
+			$sql2="UPDATE `page` SET `title`=:title, `description`=:description, `content`=:content, `url`=:pageUrl WHERE `id`=:pageId";
 
 			$query = $bdd->prepare($sql2);
 
@@ -24,14 +24,14 @@
 
 		}else{
 			//Create Commmune
-			$sql2="INSERT INTO pages(title, description, content, url) VALUES ('$title', '$description', '$content', '$pageUrl')";
+			$sql2="INSERT INTO page(title, description, content, url) VALUES ('$title', '$description', '$content', '$pageUrl')";
 			$result2 =  $bdd->query($sql2);
 		}
 	}
 	//Delete Commune
 	if(isset($_POST['pageId']) && $_POST['pageId'] != ""){
 		$pageId = $_POST['pageId'];
-		$sql2="DELETE FROM pages where id=$pageId";
+		$sql2="DELETE FROM page where id=$pageId";
 		$result2 =  $bdd->query($sql2);
 	}
 	@include('getFunction.php');

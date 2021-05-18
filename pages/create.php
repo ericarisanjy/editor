@@ -61,7 +61,7 @@
               
             </div>
           </div>
-          <input type="number" name="" class="nbre_col is_hidden" placeholder="Nombre de colonne">
+          <input type="number" name="" class="nbre_col is_hidden" value="3" placeholder="Nombre de colonne">
         </div>
         <button class="preview-link">Preview</button>
       </div>

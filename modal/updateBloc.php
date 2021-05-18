@@ -151,7 +151,7 @@
 						<div class="content-input-setting" style="width: auto">
 							<div class="title-setting">
 								<input type="text" name="dropdown-title" class="input input-align" data-item="" placeholder="Alignement" readonly>
-								<div class="content-dropdown is_hidden">
+								<div class="dropdown-alignment is_hidden">
 									<span class="drop-item align-drop-item" data-item="flex-start">Gauche</span>
 									<span class="drop-item align-drop-item" data-item="center">Centré</span>
 									<span class="drop-item align-drop-item" data-item="flex-end">Droite</span>
@@ -164,7 +164,7 @@
 				
 			</div>
 		</div>
-			<div class="content-btn">
+			<div class="content-btn justify_content_center">
 				<button class="btn-valid">Valider</button>
 			</div>
 		</div>
