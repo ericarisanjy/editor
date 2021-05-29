@@ -21,7 +21,8 @@
 			            ['TextColor','BGColor']
 			        ], toolbarCanCollapse:false, height: '300px', scayt_sLang: 'pt_PT', uiColor : '#EBEBEB' } );
 			</script>
-			<div class="content-btn btn-insert-table justify_content_center">
+			<div class="content-btn">
+				<button class="btn-delete">Supprimer le texte</button>
 				<button class="btn-valid">Valider</button>
 			</div>
 		</div>

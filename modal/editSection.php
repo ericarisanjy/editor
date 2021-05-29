@@ -10,11 +10,11 @@
 					<span class="txt-header">POLICE</span>
 					<div class="content-property">
 						<span>Couleur du text</span>
-							<input type="color" class="basic-item text-color-section" value="" style="width: 62px;" />
+							<input type="color" class="basic-item text-color-section" value="#000000" style="width: 62px;" />
 					</div>
 					<div class="content-property">
 						<span>Couleur du fond</span>
-							<input type="color" class="basic-item back-color-section" value="" style="width: 62px;"/>
+							<input type="color" class="basic-item back-color-section" value="#000000" style="width: 62px;"/>
 					</div>
 				</div>
 				<div class="items marge-externe">
@@ -76,7 +76,7 @@
 					</div>
 					<div class="content-property">
 						<span>Couleur du bordure</span>
-						<input type="color" class="basic-item border-color-section" value="" style="width: 62px;"/>
+						<input type="color" class="basic-item border-color-section" value="#000000" style="width: 62px;"/>
 					</div>
 					<div class="content-property">
 						<span>Epaisseur du Bordure</span>

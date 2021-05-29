@@ -4,6 +4,8 @@ $(document).ready(function(){
 	$(document).on("click", '.add-section-text', function(){
 		if(!$(this).hasClass('grised')){
 			launch_modal("modal-add-text")
+			$('.modal-add-text').find('.btn-delete').addClass('is_hidden')
+			$('.modal-add-text').find('.text-head').text('Ajouter un texte')
 			$("body,html").animate(
 				{
 					scrollTop: $('.modal-add-text').offset().top
@@ -24,6 +26,8 @@ $(document).ready(function(){
 	$(document).on("click", '.update-text-btn', function(){
 		if(!$(this).hasClass('grised')){
 			launch_modal("modal-add-text")
+			$(".modal-add-text").find('.txt-head').text('Modifier le texte')
+			$(".modal-add-text").find('.btn-delete').removeClass("is_hidden")
 			$("body,html").animate(
 				{
 					scrollTop: $('.modal-add-text').offset().top
@@ -396,8 +400,8 @@ $(document).ready(function(){
 		let alignment = data.alignment
 
 
-		$('.modal-update-bloc').find('.text-color-bloc').val(textColor?textColor:"#000")
-		$('.modal-update-bloc').find('.back-color-bloc').val(backColor?backColor:"#000")
+		$('.modal-update-bloc').find('.text-color-bloc').val(textColor?textColor:"#000000")
+		$('.modal-update-bloc').find('.back-color-bloc').val(backColor?backColor:"#000000")
 		$('.modal-update-bloc').find('.marge-haut-bloc').val(margeUp?margeUp:"")
 		$('.modal-update-bloc').find('.marge-bas-bloc').val(margeDown?margeDown:"")
 		$('.modal-update-bloc').find('.marge-droite-bloc').val(margeRight?margeRight:"")
@@ -415,6 +419,7 @@ $(document).ready(function(){
 	})
 
 	$(".modal-update-bloc").on('click', '.closed', function(){
+		$(".modal-update-bloc").find('.dropdown-alignment').addClass('is_hidden')
 		close_modal('modal-update-bloc')
 	})
 
@@ -507,6 +512,7 @@ $(document).ready(function(){
 		let borderColor = $('.modal-update-bloc').find('.border-color-bloc').val()
 		let borderHeight = $('.modal-update-bloc').find('.border-height-bloc').val()
 		let alignment = $('.modal-update-bloc').find('.input-align').attr('data-item')
+		let alignmentHorizontal = $('.modal-update-bloc').find('.input-align-horizontal').attr('data-item')
 
 		let data = {
 			textColor: textChangeSection?textColor:"inherit",
@@ -524,7 +530,8 @@ $(document).ready(function(){
 			borderType: borderType === ""?"":borderType,
 			borderColor: borderColor === ""?0:borderColor,
 			borderHeight: borderHeight === ""?0:borderHeight,
-			alignment: alignment
+			alignment: alignment,
+			alignmentHorizontal: alignmentHorizontal
 		}
 		$(selecteur).attr('data-bigData', JSON.stringify(data))
 		selecteur.closest('.section-container').find('.section-parent').addClass(classe)
@@ -543,9 +550,9 @@ $(document).ready(function(){
 				dataAlignement = "right"
 			}
 			selecteur.closest(".section-container").find('.paragraph-container').attr('style', "text-align:"+dataAlignement)
-			selecteur.closest(".section-container").find('.img-inserted-container').attr('style', "justify-content:"+data.alignment)
+			selecteur.closest(".section-container").find('.img-inserted-container').attr('style', "justify-content:"+data.alignment+";align-items:"+data.alignmentHorizontal)
 		}
-		
+		$(".modal-update-bloc").find('.dropdown-alignment').addClass('is_hidden')
 		close_modal('modal-update-bloc')
 	})
 
@@ -633,11 +640,31 @@ $(document).ready(function(){
 		$(this).siblings('.dropdown-alignment').toggleClass('is_hidden')
 	})
 
+	$(".modal-edit-bloc").on('click', ".input-align", function(){
+		$(this).siblings('.dropdown-alignment').toggleClass('is_hidden')
+	})
+
+	$(".modal-update-bloc").on('click', ".input-align-horizontal", function(){
+		$(this).siblings('.dropdown-alignment').toggleClass('is_hidden')
+	})
+
+	$(".modal-edit-bloc").on('click', ".input-align-horizontal", function(){
+		$(this).siblings('.dropdown-alignment').toggleClass('is_hidden')
+	})
+
 	$('.modal-update-bloc').on('click', '.align-drop-item', function(){
 		let dataItem = $(this).attr('data-item');
 		let data = $(this).text();
 		$(this).closest('.content-input-setting').find('.input-align').val(data)
 		$(this).closest('.content-input-setting').find('.input-align').attr('data-item', dataItem)
+		$(this).closest('.dropdown-alignment').toggleClass('is_hidden')
+	})
+
+	$('.modal-update-bloc').on('click', '.align-horizontal-drop-item', function(){
+		let dataItem = $(this).attr('data-item');
+		let data = $(this).text();
+		$(this).closest('.content-input-setting').find('.input-align-horizontal').val(data)
+		$(this).closest('.content-input-setting').find('.input-align-horizontal').attr('data-item', dataItem)
 		$(this).closest('.dropdown-alignment').toggleClass('is_hidden')
 	})
 	//End Edit Section

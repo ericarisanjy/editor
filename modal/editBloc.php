@@ -10,11 +10,11 @@
 					<span class="txt-header">POLICE</span>
 					<div class="content-property">
 						<span>Couleur du text</span>
-							<input type="color" class="basic-item text-color-bloc" value="#000" />
+							<input type="color" class="basic-item text-color-bloc" value="#000000" />
 					</div>
 					<div class="content-property">
 						<span>Couleur du fond</span>
-							<input type="color" class="basic-item back-color-bloc" value="#000" />
+							<input type="color" class="basic-item back-color-bloc" value="#000000" />
 					</div>
 				</div>
 				<div class="items marge-externe">
@@ -76,7 +76,7 @@
 					</div>
 					<div class="content-property">
 						<span>Couleur du bordure</span>
-						<input type="color" class="basic-item border-color-bloc" value="" style="width: 62px;"/>
+						<input type="color" class="basic-item border-color-bloc" value="#000000" style="width: 62px;"/>
 					</div>
 					<div class="content-property">
 						<span>Epaisseur du Bordure</span>
@@ -101,10 +101,23 @@
 						<div class="content-input-setting" style="width: auto">
 							<div class="title-setting">
 								<input type="text" name="dropdown-title" class="input input-align" data-item="" placeholder="Alignement" readonly>
-								<div class="content-dropdown is_hidden">
+								<div class="dropdown-alignment is_hidden">
 									<span class="drop-item align-drop-item" data-item="flex-start">Gauche</span>
 									<span class="drop-item align-drop-item" data-item="center">Centré</span>
 									<span class="drop-item align-drop-item" data-item="flex-end">Droite</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="content-property">
+						<span>Alignement Horizontal</span>
+						<div class="content-input-setting" style="width: auto">
+							<div class="title-setting">
+								<input type="text" name="dropdown-title" class="input input-align-horizontal" data-item="" placeholder="Alignement" readonly>
+								<div class="dropdown-alignment is_hidden">
+									<span class="drop-item align-horizontal-drop-item" data-item="flex-start">En Haut</span>
+									<span class="drop-item align-horizontal-drop-item" data-item="center">Centré</span>
+									<span class="drop-item align-horizontal-drop-item" data-item="flex-end">En bas</span>
 								</div>
 							</div>
 						</div>

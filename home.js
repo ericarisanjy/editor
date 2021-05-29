@@ -1,136 +1,13 @@
-let selecteur = ""
-let imageSelector = ""
-let imgData = "";
-let imgSelected = "";
-let imgLoaded = []
-let sectionDataOnModal = ""
-let imageId = 0
-let createIsTrue = true
-let section100On = '<div class="section-child content-sections">\
-              <div class="section-item border-dashed-blue min-height-150"  data-section="1">\
-              </div>\
-              <div class="content-btn-act-on is_hidden">\
-              	<div class="edit-btn-on" data-bigData="">\
-	                <i class="fa fa-pencil" aria-hidden="true"></i>\
-	              </div>\
-	              <div class="delete-btn-on" data-bigData="">\
-	                <i class="fa fa-trash" aria-hidden="true"></i>\
-	              </div>\
-	              <div class="text-btn-on" data-bigData="">\
-	                T\
-	              </div>\
-	              <div class="image-btn-on" data-bigData="">\
-	                <i class="fa fa-picture-o" aria-hidden="true"></i>\
-	              </div>\
-              </div>\
-            </div>'
-    let section35On = '<div class="section-child content-sections35">\
-              <div class="section-item border-dashed-blue min-height-150"  data-section="1">\
-              </div>\
-              <div class="content-btn-act-on is_hidden">\
-              	<div class="edit-btn-on" data-bigData="">\
-	                <i class="fa fa-pencil" aria-hidden="true"></i>\
-	              </div>\
-	              <div class="delete-btn-on" data-bigData="">\
-	                <i class="fa fa-trash" aria-hidden="true"></i>\
-	              </div>\
-	              <div class="text-btn-on" data-bigData="">\
-	                T\
-	              </div>\
-	              <div class="image-btn-on" data-bigData="">\
-	                <i class="fa fa-picture-o" aria-hidden="true"></i>\
-	              </div>\
-              </div>\
-            </div>'
-    let sectionParentOn = '<div class="section-containerOn" data-bloc="">\
-			<div class="content-three-dots">\
-			<div class="three-dots">.</div>\
-			<div class="three-dots">.</div>\
-			<div class="three-dots">.</div>\
-		</div>\
-          </div>'
-
-    let section100 = '<div class="content-sections">\
-              <div class="section-header">\
-                <span class="add-text add-section-text">T</span>\
-                <i class="fa fa-picture-o add-image-section" aria-hidden="true"></i>\
-              </div>\
-              <div class="section-parent section-item border-dashed min-height-150"  data-section="1">\
-              </div>\
-              <div class="content-btn-act is_hidden">\
-                <div class="add-bloc-btn">\
-                  <i class="fa fa-th" aria-hidden="true"></i>\
-                </div>\
-                <div class="edit-btn">\
-                  <i class="fa fa-pencil edit-property-section" aria-hidden="true"></i>\
-                </div>\
-              </div>\
-            </div>'
-    let section35 = '<div class="content-sections35">\
-              <div class="section-header">\
-                <span class="add-text add-section-text">T</span>\
-                <i class="fa fa-picture-o add-image-section" aria-hidden="true"></i>\
-              </div>\
-              <div class="section-parent section-item border-dashed min-height-150"  data-section="1">\
-              </div>\
-              <div class="content-btn-act is_hidden">\
-                <div class="add-bloc-btn">\
-                  <i class="fa fa-th" aria-hidden="true"></i>\
-                </div>\
-                <div class="edit-btn">\
-                  <i class="fa fa-pencil edit-property-section" aria-hidden="true"></i>\
-                </div>\
-              </div>\
-            </div>'
-    let sectionParent = '<div class="section-container" data-section="">\
-            <div class="section sectionOne">\
-              <div class="section-side">\
-                <i class="fa fa-pencil-square-o edit-section-btn" aria-hidden="true"></i>\
-                <i class="fa fa-trash delete-section-btn" aria-hidden="true"></i>\
-				<i class="fa fa-files-o copy-bloc-btn" aria-hidden="true"></i>\
-              </div>\
-            </div>\
-          </div>'   
+ 
 $(document).ready(function(){
-	setInterval(function(){
-		$(document).find('.content-sections').each(function(){
-			if($(this).find('.section-containerOn').html() == undefined){
-				$(this).find('.add-section-text').removeClass('grised')
-				$(this).find('.add-image-section').removeClass('grised')
-			}else{
-				$(this).find('.add-section-text').addClass('grised')
-				$(this).find('.add-image-section').addClass('grised')
-			}
-		})
-	},1000)
-	$(document).on('mouseover', '.section-item', function(){
-		$(this).siblings('.content-btn-act').removeClass('is_hidden')
-	})
-	$(document).on('mouseleave', '.section-item', function(){
-		$(this).siblings('.content-btn-act').addClass('is_hidden')
-	})
-	$(document).on('mouseover', '.content-btn-act', function(){
-		$(this).removeClass('is_hidden')
-	})
-
-	$(document).on('mouseover', '.section-containerOn .section-item', function(){
-		$(this).siblings('.content-btn-act-on').removeClass('is_hidden')
-	})
-	$(document).on('mouseleave', '.section-containerOn .section-item', function(){
-		$(this).siblings('.content-btn-act-on').addClass('is_hidden')
-	})
-	$(document).on('mouseover', '.content-btn-act-on', function(){
-		$(this).removeClass('is_hidden')
-	})
-
-
+	
     $(document).on('click', '.copy-bloc-btn', function(){
     	let clone = $(this).closest('.section-container').clone()
-		console.log('mande', $(document).find('.section-container:last'))
     	clone.insertAfter($(document).find('.section-container:last'))
     })
     
     $(".modal-edit-bloc").on('click', '.closed', function(){
+		$(".modal-edit-bloc").find('.dropdown-alignment').addClass('is_hidden')
     	close_modal('modal-edit-bloc')
     })
 
@@ -144,6 +21,7 @@ $(document).ready(function(){
 	})
 
     $(".modal-edit-bloc").on('click', '.btn-valid', function(){
+		$(".modal-edit-bloc").find('.dropdown-alignment').addClass('is_hidden')
     	close_modal('modal-edit-bloc')
     	let textColor = $('.modal-edit-bloc').find('.text-color-bloc').val()
 		let backColor = $('.modal-edit-bloc').find('.back-color-bloc').val()
@@ -162,6 +40,8 @@ $(document).ready(function(){
 		let borderHeight = $('.modal-edit-bloc').find('.border-height-bloc').val()
 		let align = $('.modal-edit-bloc').find('.input-align').attr('data-item')
 		let alignValue = $('.modal-edit-bloc').find('.input-align').val()
+		let alignHorizontal = $('.modal-edit-bloc').find('.input-align-horizontal').attr('data-item')
+		let alignHorizontalValue = $('.modal-edit-bloc').find('.input-align-horizontal').val()
 
 		let data = {
 			textColor: textBlocChange?textColor:"inherit",
@@ -178,6 +58,8 @@ $(document).ready(function(){
 			id: id,
 			align,
 			alignValue,
+			alignHorizontal,
+			alignHorizontalValue,
 			borderType: borderType === ""?"":borderType,
 			borderColor: borderColor === ""?0:borderColor,
 			borderHeight: borderHeight === ""?0:borderHeight,
@@ -191,8 +73,9 @@ $(document).ready(function(){
 			blocStyle.push("border:"+data.borderHeight+"px "+data.borderColor+" "+data.borderType+" !important;")
 		}
 		selecteur.closest('.content-btn-act-on').siblings('.section-item').attr('style', blocStyle.join(";"))
-		selecteur.closest(".content-sections").find('.paragraph-container').attr('style', "text-align:"+data.align)
-    })
+		selecteur.closest(".content-sections").find('.paragraph-container').attr('style', "text-align:"+data.align+";align-items:"+data.alignHorizontal)
+		selecteur.closest(".content-sections").find('.img-inserted-container').attr('style', "justify-content:"+data.align+";align-items:"+data.alignHorizontal)
+	})
 
 	
 	$(document).on("click", '.edit-btn', function(){
@@ -223,8 +106,8 @@ $(document).ready(function(){
 		let borderHeight = data.borderHeight
 
 
-		$('.modal-edit-section').find('.text-color-section').val(textColor?textColor:"#000")
-		$('.modal-edit-section').find('.back-color-section').val(backColor?backColor:"#000")
+		$('.modal-edit-section').find('.text-color-section').val(textColor?textColor:"#000000")
+		$('.modal-edit-section').find('.back-color-section').val(backColor?backColor:"#000000")
 		$('.modal-edit-section').find('.marge-haut-section').val(margeUp?margeUp:"")
 		$('.modal-edit-section').find('.marge-bas-section').val(margeDown?margeDown:"")
 		$('.modal-edit-section').find('.marge-droite-section').val(margeRight?margeRight:"")
@@ -265,7 +148,7 @@ $(document).ready(function(){
           	$(".container-create").find('.section-container:last').append(section100)
 			$(".container-create").find('.section-container:last').attr('data-section', section)
           }else{
-          	$(".container-create").find('.not_on_modal').find('.nbre_col').removeClass('is_hidden')
+          	$(".container-create").find('.not_on_modal').find('.content_nbre_col').removeClass('is_hidden')
           }
 	})
 
@@ -273,6 +156,7 @@ $(document).ready(function(){
 	$(document).on("click", '.not_on_modal .defaultSection', function(){
 		let section = $(this).attr('data-section')
           let sectionType = $(this).attr('data-section')
+		  $(".container-update").find('.not_on_modal').find('.content_nbre_col').addClass('is_hidden')
           if(sectionType === "sectionOne"){
           	$(".container-update").find('.page-container').append(sectionParent)
           	$(".container-update").find('.section-container:last').append(section100)
@@ -294,7 +178,7 @@ $(document).ready(function(){
           	$(".container-update").find('.section-container:last').append(section100)
 			$(".container-update").find('.section-container:last').attr('data-section', section)
           }else{
-          	$(".container-update").find('.not_on_modal').find('.nbre_col').removeClass('is_hidden')
+          	$(".container-update").find('.not_on_modal').find('.content_nbre_col').removeClass('is_hidden')
           }
 	})
 
@@ -305,48 +189,25 @@ $(document).ready(function(){
 		$(document).find('.image-display').attr('src', imgSelected)
 	})
 
-	$(document).on('keyup', '.not_on_modal .nbre_col', function(e){
-		if(e.keyCode === 13){
-			let nbre_col = $(this).val();
-			if(nbre_col === "1"){
-				$(".container-update").find('.page-container').append(sectionParent)
-				$(".container-update").find('.section-container:last').append(section100)
-				//$(".container-create").find('.section-container:last').attr('data-section', section)  
-			}else if(nbre_col === "2"){
-				$(".container-update").find('.page-container').append(sectionParent)
-				for(var i = 0; i < 2; i++){
-					$(".container-update").find('.section-container:last').append(section100)
-				}
-			}else{
-				$(".container-update").find('.page-container').append(sectionParent)
-				for(var i = 0; i < nbre_col; i++){
-					$(".container-update").find('.section-container:last').append(section100)
-				}
-			}
-			$(this).addClass('is_hidden')
-		}
-	})
 
-	$(document).on('keyup', '.not_on_modal .nbre_col', function(e){
-		if(e.keyCode === 13){
-			let nbre_col = $(this).val();
-			if(nbre_col === "1"){
-				$(".container-create").find('.page-container').append(sectionParent)
+	$(document).on('click', '.not_on_modal .check_nbre_col', function(e){
+		let nbre_col = $(this).siblings('.nbre_col').val();
+		if(nbre_col === "1"){
+			$(".container-create").find('.page-container').append(sectionParent)
+			$(".container-create").find('.section-container:last').append(section100)
+			//$(".container-create").find('.section-container:last').attr('data-section', section)  
+		}else if(nbre_col === "2"){
+			$(".container-create").find('.page-container').append(sectionParent)
+			for(var i = 0; i < 2; i++){
 				$(".container-create").find('.section-container:last').append(section100)
-				//$(".container-create").find('.section-container:last').attr('data-section', section)  
-			}else if(nbre_col === "2"){
-				$(".container-create").find('.page-container').append(sectionParent)
-				for(var i = 0; i < 2; i++){
-					$(".container-create").find('.section-container:last').append(section100)
-				}
-			}else{
-				$(".container-create").find('.page-container').append(sectionParent)
-				for(var i = 0; i < nbre_col; i++){
-					$(".container-create").find('.section-container:last').append(section100)
-				}
 			}
-			$(this).addClass('is_hidden')
+		}else{
+			$(".container-create").find('.page-container').append(sectionParent)
+			for(var i = 0; i < nbre_col; i++){
+				$(".container-create").find('.section-container:last').append(section100)
+			}
 		}
+		$(this).closest('.content_nbre_col').addClass('is_hidden')
 	})
 
 	$('.page-container').dad();
@@ -356,6 +217,10 @@ $(document).ready(function(){
 		close_modal('modal-edit-section')
 	})
 	$(".modal-add-text").on("click", '.closed', function(){
+		close_modal('modal-add-text')
+	})
+	$(".modal-add-text").on("click", '.btn-delete', function(){
+		selecteur.closest('.paragraph-container').remove()
 		close_modal('modal-add-text')
 	})
 	$(".modal-add-text").on("click", '.btn-valid', function(){
@@ -407,6 +272,14 @@ $(document).ready(function(){
 		let data = $(this).text();
 		$(this).closest('.content-input-setting').find('.input-align').val(data)
 		$(this).closest('.content-input-setting').find('.input-align').attr('data-item', dataItem)
+		$(this).closest('.content-dropdown').toggleClass('is_hidden')
+	})
+
+	$('.modal-edit-bloc').on('click', '.align-horizontal-drop-item', function(){
+		let dataItem = $(this).attr('data-item');
+		let data = $(this).text();
+		$(this).closest('.content-input-setting').find('.input-align-horizontal').val(data)
+		$(this).closest('.content-input-setting').find('.input-align-horizontal').attr('data-item', dataItem)
 		$(this).closest('.content-dropdown').toggleClass('is_hidden')
 	})
 
@@ -529,6 +402,7 @@ $(document).ready(function(){
 		$(document).find('.preview-page').find('.section-parent').removeClass('border-dashed')
 		$(document).find('.preview-page').find('.section-child').find('.section-item').removeClass('border-dashed-blue')
 		$(document).find('.preview-page').find('.section-child').find('.content-btn-act-on').remove()
+		$(document).find('.preview-page').find('.section-child').find('.content-btn-move').remove()
 		$(document).find('.body-container').addClass('is_hidden')
 		$(document).find('.content-btn-register').addClass('is_hidden')
 		$(document).find('.bloc-container').addClass('is_hidden')
@@ -576,16 +450,16 @@ $(document).ready(function(){
 				</div>\
 			</div>\
 			</div>\
-		</div>'
+		</div><style class="style"></style>'
 		$(document).find('.container-create').find('.page-container').html(html)
 	})
 	$(".container-create").on('click', '.btn-register', function(){
 		let title = $(document).find(".container-create-input").find('.pageName').val()
 		let description = $(document).find(".container-create-input").find('.pagedescription').val()
-		let content = htmlToPreview
 		let pageUrl = $(document).find(".container-create-input").find('.pageUrl').val()
 		if(title !== "" && description !== ""){
 			htmlToPreview = $(document).find(".container-create").find('.page-container').html()
+			let content = htmlToPreview
 			$(document).find(".container-create").find('.sectionOne').addClass('is_hidden')
 			$(document).find(".container-create").find('.section-header').addClass('is_hidden')
 			$(document).find(".container-create").find('.content-btn-act').addClass('is_hidden')
@@ -593,6 +467,7 @@ $(document).ready(function(){
 			$(document).find(".container-create").find('.content-three-dots').addClass('is_hidden')
 			$(document).find(".container-create").find('.section-child').find('.section-item').removeClass('border-dashed-blue')
 			$(document).find(".container-create").find('.section-child').find('.content-btn-act-on').addClass('is_hidden')
+			$(document).find(".container-create").find('.section-child').find('.content-btn-move').addClass('is_hidden')
 			$(document).find(".container-create").find('.edit-btn-img').addClass('is_hidden')
 			$.ajaxSetup({
 				headers: {
@@ -603,13 +478,15 @@ $(document).ready(function(){
 				type: "POST",
 				url: 'function.php',
 				dataType: 'json',
-				data: {title: title, description: description, content: content, pageUrl: pageUrl},
+				data: {title: title, description: description, content: content, pageUrl: pageUrl, cssFileArray: JSON.stringify(cssFileContent)},
 				success: function(responses){
 					tableResponse(responses)
 					$(document).find('.create-page-item').addClass('is_hidden')
 					toastr.success('Page enregistrer avec success')
 				 },
 				   error: function(error, res){
+					   console.log(error)
+					   console.log(res)
 					toastr.warning('Une erreur est survenue lors de l\'enregistrement')
 				 }
 			});
@@ -640,6 +517,7 @@ $(document).ready(function(){
 		let pageUrl = $(document).find(".container-update-input").find('.pageUrl').val()
 		if(title !== "" && description !== ""){
 			htmlToPreview = $(document).find(".container-update").find('.page-container').html()
+			console.log(htmlToPreview)
 			$(document).find(".container-update").find('.sectionOne').addClass('is_hidden')
 			$(document).find(".container-update").find('.section-header').addClass('is_hidden')
 			$(document).find(".container-update").find('.content-btn-act').addClass('is_hidden')
@@ -647,8 +525,8 @@ $(document).ready(function(){
 			$(document).find(".container-update").find('.content-three-dots').addClass('is_hidden')
 			$(document).find(".container-update").find('.section-child').find('.section-item').removeClass('border-dashed-blue')
 			$(document).find(".container-update").find('.section-child').find('.content-btn-act-on').addClass('is_hidden')
+			$(document).find(".container-update").find('.section-child').find('.content-btn-move').addClass('is_hidden')
 			$(document).find(".container-update").find('.edit-btn-img').addClass('is_hidden')
-
 			
 			$.ajaxSetup({
 				headers: {
@@ -659,7 +537,7 @@ $(document).ready(function(){
 				type: "POST",
 				url: 'function.php',
 				dataType: 'json',
-				data: {idPage: pageId, title: title, description: description, content: content, pageUrl: pageUrl},
+				data: {idPage: pageId, title: title, description: description, content: htmlToPreview, pageUrl: pageUrl, cssFileArray: JSON.stringify(cssFileContent)},
 				success: function(responses){
 					tableResponse(responses)
 					$(document).find('.update-page').addClass('is_hidden')
@@ -714,6 +592,12 @@ $(document).ready(function(){
 				$(document).find('.create-page-item').addClass('is_hidden')
 				$(document).find('.container-update-input').find('.pageName').val(responses[0].title)
 				$(document).find('.container-update-input').find('.pagedescription').val(responses[0].description)
+				cssFileContent = JSON.parse(responses[0].cssContent)
+				$(".container-update-input").find(".item-content").each(function(){
+					if(cssFileContent[$(this).find('.input-check-page').val()]){
+						$(this).find('.input-check-page').prop('checked', true)
+					}
+				})
 				$(document).find('.container-update').find('.btn-register').attr('data-pageid', responses[0].id)
 				let content = responses[0].content
 				content = content.replace('"{', "'{")
@@ -727,6 +611,7 @@ $(document).ready(function(){
 				$(document).find(".container-update").find('.content-three-dots').addClass('is_hidden')
 				$(document).find(".container-update").find('.section-child').find('.section-item').addClass('border-dashed-blue')
 				$(document).find(".container-update").find('.section-child').find('.content-btn-act-on').removeClass('is_hidden')
+				$(document).find(".container-update").find('.section-child').find('.content-btn-move').removeClass('is_hidden')
             },
             error: function(error){
                 toastr.success('Une erreur est survenue lors de l\'enregistrement')
@@ -734,57 +619,51 @@ $(document).ready(function(){
         });
 		return false
 	})
+
+	$(document).on('click', '.btn-create-css', function(){
+		$(document).find('.content-create-css').removeClass('is_hidden')
+		$(document).find('.container-page-list').addClass('is_hidden')
+		$(document).find('.create-page-container').addClass('is_hidden')
+		$(document).find('.create-page-container').addClass('is_hidden')
+		$(document).find('.container').addClass('is_hidden')
+	})
+
+	$(document).on('click', '.input-drop', function(){
+		$(this).siblings('.drop-container').toggleClass('is_hidden')
+	})
+
+	$(document).on('click', '.input-check', function(){
+		$(document).find('.input-check').prop('checked', false)
+		$(this).prop('checked', true)
+		cssFileId = $(this).val()
+	})
+
+	$(document).on('click', '.input-check-page', function(){
+		let cssFilePageContent = $(this).attr('data-content')
+		let cssFilePageId = $(this).val()
+		$(document).find('.style').html("")
+		if($(this).prop('checked')){
+			cssFileContent[cssFilePageId] = cssFilePageContent
+		}else{
+			delete cssFileContent[cssFilePageId]
+		}
+		for(let i in cssFileContent){
+			cssFileContent[i] = cssFileContent[i].replace(/\s{2,10}/g, '');
+			cssFileContent[i] = cssFileContent[i].replace(/[\n\r]+/g, '');
+		}
+		console.log(cssFileContent)
+		for(let i in cssFileContent){
+			$(document).find('.style').append(cssFileContent[i])
+		}
+	})
+
+	$(document).on('mouseleave', '.drop-container', function(){
+		$(this).closest('.drop-container').addClass('is_hidden')
+	})
+
+	$(document).on('click', '.btn-return', function(){
+		$(document).find('.content-create-css').addClass('is_hidden')
+		$(document).find('.container-page-list').removeClass('is_hidden')
+	})
+	
 })
-function launch_modal(selector){
-	$("."+selector).removeClass('is_hidden')
-	$(".container").addClass('is_blurred')
-	$(".container-page-list").addClass('is_blurred')
-	$(".create-page-container").addClass('is_blurred')
-	$("body").addClass("no_scroll")
-}
-function close_modal(selector){
-	$("."+selector).addClass('is_hidden')
-	$(".container").removeClass('is_blurred')
-	$(".container-page-list").removeClass('is_blurred')
-	$(".create-page-container").removeClass('is_blurred')
-	$("body").removeClass("no_scroll")
-}
-function readURLLogo(input, div) {
-    if (input.files && input.files[0]) {
-        if (input.files[0].type == "image/jpeg" || input.files[0].type == "image/png" || input.files[0].type == "image/svg+xml"){
-            var reader = new FileReader();
-            reader.onload = function (e) {
-            	imgData = e.target.result
-				imgLoaded.push(imgData)
-				localStorage.setItem('ImgLoaded', JSON.stringify(imgLoaded))
-				$(document).find('.image-display').attr('src', imgData)
-            }
-            reader.readAsDataURL(input.files[0]);
-            $('p.infoLogo').text('');
-        } else {
-            $('p.infoLogo').text(image_valid);
-            $('#company_logo').val('');
-            //$('#img_entreprise').attr('src', 's');
-        }
-    }
-}
-
-function removeDuplicates(colors) {
-	let unique = {};
-	colors.forEach(function(i) {
-	  if(!unique[i]) {
-		unique[i] = true;
-	  }
-	});
-	return Object.keys(unique);
-}
-
-tableResponse=(response)=>{
-	$(document).find('tbody').html("")
-	for(let unit of response){
-		let html = "<tr><td>"+unit.id+"</td><td class='td-title'>"+unit.title+"</td><td>"+unit.description+"</td>\
-		<td><a href='"+unit.url+"' target='_blank'>"+unit.url+"</a></td><td class='td-action'><button class='btn-valid' data-pageid='"+unit.id+"'>Edit</button>\
-		<button class='btn-delete' data-pageid='"+unit.id+"'>Supprimer</button></td></tr>"
-		$(document).find('tbody').append(html)
-	}
-}

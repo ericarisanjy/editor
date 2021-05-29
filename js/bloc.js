@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+	//Starting Launch Modal
 	$(document).on('click', '.add-bloc-btn', function(){
 		launch_modal('modal-add-bloc')
 		$("body,html").animate(
@@ -9,6 +9,8 @@ $(document).ready(function(){
 		selecteur = $(this)
 	})
 
+	//Ending Launch Modal
+
 	$(".modal-add-bloc").on('click', '.closed', function(){
 		close_modal("modal-add-bloc")
 	})
@@ -16,7 +18,7 @@ $(document).ready(function(){
 
 	$(".modal-add-bloc").on('change', '.on_modal .nbre_col', function(){
 		col_number = $(this).val();
-		$(this).addClass('is_hidden')
+		$(this).closest('.input_nbre_col').addClass('is_hidden')
 	})
 
 	let blocHtml = []
@@ -30,9 +32,9 @@ $(document).ready(function(){
 		if(dataBloc === "5"){
 			blocSelected = $(this).siblings('.section-child').length
 			$(".modal-modif-bloc").find('.defaultSection[data-section="'+dataBloc+'"]').find('.nbre_col').val(blocSelected)
-			$(".modal-modif-bloc").find('.defaultSection[data-section="'+dataBloc+'"]').find('.nbre_col').removeClass('is_hidden')
+			$(".modal-modif-bloc").find('.defaultSection[data-section="'+dataBloc+'"]').find('.input_nbre_col').removeClass('is_hidden')
 		}else{
-			$(".modal-modif-bloc").find('.nbre_col').addClass('is_hidden')
+			$(".modal-modif-bloc").find('.input_nbre_col').addClass('is_hidden')
 		}
 		$(".modal-modif-bloc").find('.defaultSection[data-section="'+dataBloc+'"]').addClass('active')
 		$("body,html").animate(
@@ -51,7 +53,7 @@ $(document).ready(function(){
 		if(dataBloc === "5"){
 			$(this).find('.nbre_col').removeClass('is_hidden')
 		}else{
-			$(".modal-modif-bloc").find('.nbre_col').addClass('is_hidden')
+			$(".modal-modif-bloc").find('.input_nbre_col').addClass('is_hidden')
 		}
 	})
 
@@ -123,6 +125,14 @@ $(document).ready(function(){
 			}
 			selecteur.closest('.content-btn-act').siblings('.section-item').find('.section-containerOn:last').attr('data-bloc', sectionDataOnModal)
 		}
+		selecteur.closest('.content-btn-act').siblings('.section-item').find('.section-containerOn:last').find('.section-child').each(function(index){
+			let length = selecteur.closest('.content-btn-act').siblings('.section-item').find('.section-containerOn:last').find('.section-child').length
+			if(index === 0){
+				$(this).find('.move-left').addClass('grised')
+			}else if(index === (length - 1)){
+				$(this).find('.move-right').addClass('grised')
+			}
+		})
 		close_modal("modal-add-bloc")
 	})
 
@@ -133,7 +143,7 @@ $(document).ready(function(){
 		if(sectionDataOnModal == '5'){
 			$(this).find('.nbre_col').removeClass('is_hidden')
 		}else{
-			$(".modal-update-bloc").find('.on_modal').find('.nbre_col').addClass('is_hidden')
+			$(".modal-add-bloc").find('.on_modal').find('.nbre_col').addClass('is_hidden')
 		}
 	})
 
@@ -516,6 +526,8 @@ $(document).ready(function(){
 
 	$(document).on('click', '.text-btn-on', function(){
     	launch_modal('modal-add-text')
+		$('.modal-add-text').find('.btn-delete').addClass('is_hidden')
+		$('.modal-add-text').find('.text-head').text('Ajouter un texte')
 		$("body,html").animate(
 			{
 				scrollTop: $('.modal-add-text').offset().top
@@ -569,8 +581,8 @@ $(document).ready(function(){
 		let borderHeight = data.borderHeight
 		let align = data.align
 
-		$('.modal-edit-bloc').find('.text-color-bloc').val(textColor?textColor:"#000")
-		$('.modal-edit-bloc').find('.back-color-bloc').val(backColor?backColor:"#000")
+		$('.modal-edit-bloc').find('.text-color-bloc').val(textColor?textColor:"#000000")
+		$('.modal-edit-bloc').find('.back-color-bloc').val(backColor?backColor:"#000000")
 		$('.modal-edit-bloc').find('.marge-haut-bloc').val(margeUp?margeUp:"")
 		$('.modal-edit-bloc').find('.marge-bas-bloc').val(margeDown?margeDown:"")
 		$('.modal-edit-bloc').find('.marge-droite-bloc').val(margeRight?margeRight:"")
@@ -586,4 +598,45 @@ $(document).ready(function(){
 		$('.modal-edit-bloc').find('.border-height-bloc').val(borderHeight?borderHeight:"")
 		$('.modal-edit-bloc').find('.input-align').val(align?align:"")
     })
+
+	$(document).on('click', '.move-left', function(){
+		let clone = $(this).closest('.section-child').clone()
+		let closest = $(this).closest('.section-containerOn')
+		if($(this).closest('.section-child').prev().html() !== $(this).closest('.section-child').siblings('.content-three-dots').html()){
+			clone.insertBefore($(this).closest('.section-child').prev())
+			setTimeout(() => {
+				$(this).closest('.section-child').remove()
+				closest.find('.move-left').removeClass('grised')
+				closest.find('.move-right').removeClass('grised')
+				closest.find('.section-child').each(function(index){
+					let length = closest.find('.section-child').length
+					if(index === 0){
+						$(this).find('.move-left').addClass('grised')
+					}else if(index === (length - 1)){
+						$(this).find('.move-right').addClass('grised')
+					}
+				})
+			}, 10);	
+		}
+	})
+	$(document).on('click', '.move-right', function(){
+		let clone = $(this).closest('.section-child').clone()
+		let closest = $(this).closest('.section-containerOn')
+		if( $(this).closest('.section-child').next().length){
+			clone.insertAfter($(this).closest('.section-child').next())
+			setTimeout(() => {
+				$(this).closest('.section-child').remove()
+				closest.find('.move-left').removeClass('grised')
+				closest.find('.move-right').removeClass('grised')
+				closest.find('.section-child').each(function(index){
+					let length = closest.find('.section-child').length
+					if(index === 0){
+						$(this).find('.move-left').addClass('grised')
+					}else if(index === (length - 1)){
+						$(this).find('.move-right').addClass('grised')
+					}
+				})
+			}, 10);	
+		}
+	})
 })

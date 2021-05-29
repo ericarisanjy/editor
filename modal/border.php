@@ -23,7 +23,7 @@
 				</div>
 				<div class="content-input">
 					<span>Couleur du bordure</span>
-					<input type="color" class="borderColor" value="#000" />
+					<input type="color" class="borderColor" value="#000000" />
 				</div>
 				<div class="content-input">
 					<span>Epaisseur du Bordure</span>

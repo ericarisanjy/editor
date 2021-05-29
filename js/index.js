@@ -46,7 +46,7 @@ $(document).ready(function(){
 	$('.container').find('.trumbowyg-button-group:first').addClass('is_hidden')
 
 	let btnPolice = '<button class="txt-color-content"><div class="content-color">A</div>\
-	<input type="color" class="basic txt-color" value="#000" /></button>\
+	<input type="color" class="basic txt-color" value="#000000" /></button>\
 	<button class="back-color-content"><div class="content-color-back"><img src="./img/eye-dropper-solid.svg"/></div><input type="color" class="basic back-color" value="" /></button>'
 
 	let btnTable = '<button class="tab-content">\
@@ -507,8 +507,8 @@ let sectionFiveChange = '<div class="section-body border-dashed min-height-150" 
 				$('.modal-edit-bloc').find('.border-color').val(borderColor)
 				$('.modal-edit-bloc').find('.border-height').val(borderHeight)
 			}else{
-				$('.modal-edit-bloc').find('.text-color').val("#000")
-				$('.modal-edit-bloc').find('.back-color').val("#000")
+				$('.modal-edit-bloc').find('.text-color').val("#000000")
+				$('.modal-edit-bloc').find('.back-color').val("#000000")
 				$('.modal-edit-bloc').find('.marge-haut').val("")
 				$('.modal-edit-bloc').find('.marge-bas').val("")
 				$('.modal-edit-bloc').find('.marge-droite').val("")
@@ -575,8 +575,8 @@ let sectionFiveChange = '<div class="section-body border-dashed min-height-150" 
 				$('.modal-edit-section').find('.border-color').val(borderColor)
 				$('.modal-edit-section').find('.border-height').val(borderHeight)
 			}else{
-				$('.modal-edit-section').find('.text-color').val("#000")
-				$('.modal-edit-section').find('.back-color').val("#000")
+				$('.modal-edit-section').find('.text-color').val("#000000")
+				$('.modal-edit-section').find('.back-color').val("#000000")
 				$('.modal-edit-section').find('.marge-haut').val("")
 				$('.modal-edit-section').find('.marge-bas').val("")
 				$('.modal-edit-section').find('.marge-droite').val("")

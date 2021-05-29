@@ -9,11 +9,13 @@
         $final_image = rand(1000,1000000).$img;
         $path = $path.strtolower($final_image);
         if(move_uploaded_file($tmp,$path)){
+            $image = imagecreatefromstring(file_get_contents($path));
             imagealphablending($image, true);
             imagesavealpha($image, true);
             $namesplit = explode(".", $img);
-            $output = "uploads/".$namesplit[0].".webp";
+            $output = "uploads/".rand(1000,1000000).$namesplit[0].".webp";
             imagewebp($image, $output, 75);
+            imagedestroy($image);
             
 
             $insert = $bdd->query("INSERT INTO image (filename) VALUES ('".$output."')");
@@ -38,8 +40,9 @@
                 imagealphablending($image, true);
                 imagesavealpha($image, true);
                 $namesplit = explode(".", $img);
-                $output = "uploads/".$namesplit[0].".webp";
+                $output = "uploads/".rand(1000,1000000).$namesplit[0].".webp";
                 imagewebp($image, $output, 75);
+                imagedestroy($image);
 
                 $imageId = $_POST['imageId'];
                 $sql2="UPDATE `image` SET `filename`=:path WHERE `id`=:imageId";
@@ -68,7 +71,7 @@
             $imageId = $_POST['imageId'];
             $sql2="DELETE FROM image where id=$imageId";
 		    $result2 =  $bdd->query($sql2);
-            echo json_encode($result->fetchAll());
+            echo json_encode($result2->fetchAll());
         }
         
     }
